@@ -29,7 +29,7 @@ jupyter:
 
 Линейные списки являются фундаментальной структурой данных, на основе которой эффективно реализуются другие абстрактные типы данных (АТД). В данном разделе рассматривается реализация стека, очереди и дека с использованием как односвязных, так и двусвязных списков.
 
-<!-- #region -->
+<!-- #region jp-MarkdownHeadingCollapsed=true -->
 ### **Стек (Stack)**
 **Стек** — это структура данных, работающая по принципу **LIFO (Last-In, First-Out)** — «последним пришёл — первым ушёл».
 
@@ -163,7 +163,7 @@ class BaseDeque:
         raise NotImplementedError("Метод size должен быть реализован")
 
 
-# 1. Стек на основе массива
+""" 1. Стек на основе массива"""
 class ArrayStack(BaseStack):
     def __init__(self):
         self._items = []
@@ -196,9 +196,8 @@ class ArrayStack(BaseStack):
         return f"ArrayStack({self._items})"
 
 
-# 2. Стек на основе связного списка
+""" 2. Стек на основе связного списка"""
 class Node:
-    """Узел связного списка"""
     def __init__(self, data):
         self.data = data
         self.next = None
@@ -249,7 +248,7 @@ class LinkedListStack(BaseStack):
         return f"LinkedListStack({items})"
 
 
-# 3. Очередь на основе массива
+""" 3. Очередь на основе массива """
 class ArrayQueue(BaseQueue):
     def __init__(self):
         self._items = []
@@ -282,7 +281,7 @@ class ArrayQueue(BaseQueue):
         return f"ArrayQueue({self._items})"
 
 
-# 4. Очередь на основе связного списка
+""" 4. Очередь на основе связного списка"""
 class LinkedListQueue(BaseQueue):
     def __init__(self):
         self._front = None
@@ -338,7 +337,7 @@ class LinkedListQueue(BaseQueue):
         return f"LinkedListQueue({items})"
 
 
-# 5. Дек на основе массива
+""" 5. Дек на основе массива"""
 class ArrayDeque(BaseDeque):
     def __init__(self):
         self._items = []
@@ -387,7 +386,7 @@ class ArrayDeque(BaseDeque):
         return f"ArrayDeque({self._items})"
 
 
-# 6. Дек на основе связного списка
+""" 6. Дек на основе связного списка """
 class LinkedListDeque(BaseDeque):
     def __init__(self):
         self._front = None
@@ -437,14 +436,14 @@ class LinkedListDeque(BaseDeque):
         if self.is_empty():
             raise IndexError("Дек пуст")
         
-        # Если в деке только один элемент
+        """Если в деке только один элемент"""
         if self._front == self._rear:
             data = self._front.data
             self._front = self._rear = None
             self._size -= 1
             return data
         
-        # Находим предпоследний элемент
+        """Находим предпоследний элемент"""
         current = self._front
         while current.next != self._rear:
             current = current.next
@@ -484,83 +483,173 @@ class LinkedListDeque(BaseDeque):
         return f"LinkedListDeque({items})"
 
 
-# Демонстрация работы всех структур данных
+
 if __name__ == "__main__":
-    print("=== Демонстрация работы структур данных ===\n")
+    print("=== ТЕСТИРОВАНИЕ СТРУКТУР ДАННЫХ ===\n")
     
-    # 1. Стек на массиве
-    print("1. Стек на основе массива:")
+    """1. Стек на массиве"""
+    print("1. Тестирование ArrayStack:")
     stack1 = ArrayStack()
+    
+    """Тест добавления"""
     stack1.push(1)
     stack1.push(2)
     stack1.push(3)
-    print(f"   После добавления 1,2,3: {stack1}")
-    print(f"   Верхний элемент: {stack1.peek()}")
-    print(f"   Удалён: {stack1.pop()}")
-    print(f"   Стек после удаления: {stack1}")
-    print(f"   Размер: {stack1.size()}")
-    print(f"   Пуст ли: {stack1.is_empty()}\n")
+    assert str(stack1) == "ArrayStack([1, 2, 3])", "Ошибка добавления в стек"
     
-    # 2. Стек на связном списке
-    print("2. Стек на основе связного списка:")
+    """Тест просмотра"""
+    assert stack1.peek() == 3, "Ошибка peek()"
+    
+    """ Тест удаления"""
+    assert stack1.pop() == 3, "Ошибка pop()"
+    assert stack1.size() == 2, "Ошибка размера после pop()"
+    
+    """Тест пустоты"""
+    assert not stack1.is_empty(), "Ошибка is_empty()"
+    
+    """Очистка и проверка пустого стека"""
+    stack1.pop()
+    stack1.pop()
+    assert stack1.is_empty(), "Стек должен быть пустым"
+    assert stack1.size() == 0, "Размер должен быть 0"
+    
+    print("   ✓ Все тесты ArrayStack пройдены\n")
+    
+    """ 2. Стек на связном списке """
+    print("2. Тестирование LinkedListStack:")
     stack2 = LinkedListStack()
+    
+    """Тест добавления"""
     stack2.push('a')
     stack2.push('b')
     stack2.push('c')
-    print(f"   После добавления 'a','b','c': {stack2}")
-    print(f"   Верхний элемент: {stack2.peek()}")
-    print(f"   Удалён: {stack2.pop()}")
-    print(f"   Стек после удаления: {stack2}\n")
+    assert str(stack2) == "LinkedListStack(['c', 'b', 'a'])", "Ошибка добавления в связный стек"
     
-    # 3. Очередь на массиве
-    print("3. Очередь на основе массива:")
+    """ Тест просмотра"""
+    assert stack2.peek() == 'c', "Ошибка peek() в связном стеке"
+    
+    """Тест удаления """
+    assert stack2.pop() == 'c', "Ошибка pop() в связном стеке"
+    assert stack2.size() == 2, "Ошибка размера после pop()"
+    
+    print("  Все тесты LinkedListStack пройдены\n")
+    
+    """ 3. Очередь на массиве"""
+    print("3. Тестирование ArrayQueue:")
     queue1 = ArrayQueue()
+    
+    """Тест добавления"""
     queue1.enqueue(10)
     queue1.enqueue(20)
     queue1.enqueue(30)
-    print(f"   После добавления 10,20,30: {queue1}")
-    print(f"   Первый элемент: {queue1.front()}")
-    print(f"   Удалён: {queue1.dequeue()}")
-    print(f"   Очередь после удаления: {queue1}\n")
+    assert str(queue1) == "ArrayQueue([10, 20, 30])", "Ошибка добавления в очередь"
     
-    # 4. Очередь на связном списке
-    print("4. Очередь на основе связного списка:")
+    """Тест просмотра"""
+    assert queue1.front() == 10, "Ошибка front()"
+    
+    """Тест удаления """
+    assert queue1.dequeue() == 10, "Ошибка dequeue()"
+    assert queue1.size() == 2, "Ошибка размера после dequeue()"
+    assert queue1.front() == 20, "Ошибка front() после dequeue()"
+    
+    print("    Все тесты ArrayQueue пройдены\n")
+    
+    """4. Очередь на связном списке"""
+    print("4. Тестирование LinkedListQueue:")
     queue2 = LinkedListQueue()
+    
+    """Тест добавления"""
     queue2.enqueue('x')
     queue2.enqueue('y')
     queue2.enqueue('z')
-    print(f"   После добавления 'x','y','z': {queue2}")
-    print(f"   Первый элемент: {queue2.front()}")
-    print(f"   Удалён: {queue2.dequeue()}")
-    print(f"   Очередь после удаления: {queue2}\n")
+    assert str(queue2) == "LinkedListQueue(['x', 'y', 'z'])", "Ошибка добавления в связную очередь"
     
-    # 5. Дек на массиве
-    print("5. Дек на основе массива:")
+    """Тест просмотра"""
+    assert queue2.front() == 'x', "Ошибка front() в связной очереди"
+    
+    """Tест удаления"""
+    assert queue2.dequeue() == 'x', "Ошибка dequeue() в связной очереди"
+    assert queue2.size() == 2, "Ошибка размера после dequeue()"
+    assert queue2.front() == 'y', "Ошибка front() после dequeue()"
+    
+    print("  Все тесты LinkedListQueue пройдены\n")
+    
+    """5. Дек на массиве"""
+    print("5. Тестирование ArrayDeque:")
     deque1 = ArrayDeque()
+    
+    """Тест добавления спереди и сзади"""
     deque1.add_front(1)
     deque1.add_rear(2)
     deque1.add_front(0)
     deque1.add_rear(3)
-    print(f"   После добавления: {deque1}")
-    print(f"   Первый элемент: {deque1.peek_front()}")
-    print(f"   Последний элемент: {deque1.peek_rear()}")
-    print(f"   Удалён спереди: {deque1.remove_front()}")
-    print(f"   Удалён сзади: {deque1.remove_rear()}")
-    print(f"   Дек после удалений: {deque1}\n")
+    assert str(deque1) == "ArrayDeque([0, 1, 2, 3])", "Ошибка добавления в дек"
     
-    # 6. Дек на связном списке
-    print("6. Дек на основе связного списка:")
+    """Тест просмотра"""
+    assert deque1.peek_front() == 0, "Ошибка peek_front()"
+    assert deque1.peek_rear() == 3, "Ошибка peek_rear()"
+    
+    """Тест удаления"""
+    assert deque1.remove_front() == 0, "Ошибка remove_front()"
+    assert deque1.remove_rear() == 3, "Ошибка remove_rear()"
+    assert deque1.size() == 2, "Ошибка размера после удалений"
+    assert str(deque1) == "ArrayDeque([1, 2])", "Ошибка состояния дека после удалений"
+    
+    print("  Все тесты ArrayDeque пройдены\n")
+    
+    """6. Дек на связном списке"""
+    print("6. Тестирование LinkedListDeque:")
     deque2 = LinkedListDeque()
+    
+    """Тест добавления"""
     deque2.add_front(100)
     deque2.add_rear(200)
     deque2.add_front(50)
     deque2.add_rear(300)
-    print(f"   После добавления: {deque2}")
-    print(f"   Первый элемент: {deque2.peek_front()}")
-    print(f"   Последний элемент: {deque2.peek_rear()}")
-    print(f"   Удалён спереди: {deque2.remove_front()}")
-    print(f"   Удалён сзади: {deque2.remove_rear()}")
-    print(f"   Дек после удалений: {deque2}")
+    assert str(deque2) == "LinkedListDeque([50, 100, 200, 300])", "Ошибка добавления в связный дек"
+    
+    """ Тест просмотра"""
+    assert deque2.peek_front() == 50, "Ошибка peek_front() в связном деке"
+    assert deque2.peek_rear() == 300, "Ошибка peek_rear() в связном деке"
+    
+    """Тест удаления"""
+    assert deque2.remove_front() == 50, "Ошибка remove_front() в связном деке"
+    assert deque2.remove_rear() == 300, "Ошибка remove_rear() в связном деке"
+    assert deque2.size() == 2, "Ошибка размера после удалений"
+    assert str(deque2) == "LinkedListDeque([100, 200])", "Ошибка состояния связного дека после удалений"
+    
+    print("  Все тесты LinkedListDeque пройдены\n")
+    
+    """ 7. Тестирование исключений"""
+    print("7. Тестирование исключений:")
+    
+    """Тест пустого стека"""
+    empty_stack = ArrayStack()
+    try:
+        empty_stack.pop()
+        assert False, "Должно быть исключение при pop() пустого стека"
+    except IndexError:
+        pass  #Ожидаемое поведение
+    
+    """Тест пустой очереди"""
+    empty_queue = ArrayQueue()
+    try:
+        empty_queue.dequeue()
+        assert False, "Должно быть исключение при dequeue() пустой очереди"
+    except IndexError:
+        pass  #Ожидаемое поведение
+    
+    """Тест пустого дека"""
+    empty_deque = ArrayDeque()
+    try:
+        empty_deque.remove_front()
+        assert False, "Должно быть исключение при remove_front() пустого дека"
+    except IndexError:
+        pass  #Ожидаемое поведение
+    
+    print("   Все тесты исключений пройдены\n")
+    
+    print("Все структуры данных работают корректно.")
 ```
 
 ### Сводная таблица временной сложности операций
@@ -616,19 +705,15 @@ def check_brackets(bracket_string):
 def run_tests():
     """Запуск 5 тестов"""
     tests = [
-        # Тест 1: Простые корректные скобки
+        
         ("()", True, "Простые круглые скобки"),
         
-        # Тест 2: Смешанные корректные скобки
         ("()[]{}", True, "Разные типы скобок"),
         
-        # Тест 3: Вложенные корректные скобки
         ("([{}])", True, "Вложенные скобки"),
         
-        # Тест 4: Незакрытая скобка
         ("(()", False, "Незакрытая круглая скобка"),
         
-        # Тест 5: Несоответствие скобок
         ("([)]", False, "Неправильный порядок скобок")
     ]
     
@@ -637,7 +722,7 @@ def run_tests():
     
     for i, (test_string, expected, description) in enumerate(tests, 1):
         result = check_brackets(test_string)
-        status = "✓ ПРОЙДЕН" if result == expected else "✗ ОШИБКА"
+        status = " ПРОЙДЕН" if result == expected else " ОШИБКА"
         
         print(f"Тест {i}: {description}")
         print(f"Строка: '{test_string}'")
@@ -647,7 +732,6 @@ def run_tests():
 
 
 def main():
-    """Основная функция"""
     run_tests()
 
 
@@ -745,44 +829,29 @@ def evaluate_postfix(expression):
 
 
 def run_five_tests():
-    """Запуск 5 тестов"""
+    """Запуск 5 тестов """
     tests = [
-        # Тест 1: Простое сложение
+       
         ("2 3 +", 5, "Простое сложение: 2 + 3"),
         
-        # Тест 2: Умножение и сложение
         ("3 4 2 * +", 11, "Умножение и сложение: 3 + 4*2"),
         
-        # Тест 3: Сложное выражение со скобками (в RPN)
         ("5 1 2 + 4 * +", 17, "Сложное выражение: 5 + (1+2)*4"),
         
-        # Тест 4: Вычитание и деление
         ("8 4 - 2 /", 2, "Вычитание и деление: (8-4)/2"),
         
-        # Тест 5: Множественные операции
         ("9 3 / 1 1 + *", 6, "Множественные операции: (9/3)*(1+1)")
     ]
     
-    print("5 ТЕСТОВ ВЫЧИСЛЕНИЯ ОБРАТНОЙ ПОЛЬСКОЙ ЗАПИСИ")
-    print("=" * 50)
+    print("5 ТЕСТОВ ВЫЧИСЛЕНИЕ ОБРАТНОЙ ПОЛЬСКОЙ ЗАПИСИ")
+    print("=" * 60)
     
     for i, (expression, expected, description) in enumerate(tests, 1):
-        try:
-            result = evaluate_postfix(expression)
-            status = "✓ ПРОЙДЕН" if result == expected else "✗ ОШИБКА"
-            
-            print(f"Тест {i}: {description}")
-            print(f"Выражение: '{expression}'")
-            print(f"Результат: {result} (ожидалось: {expected})")
-            print(f"Статус: {status}")
-            print("-" * 40)
-            
-        except Exception as e:
-            print(f"Тест {i}: {description}")
-            print(f"Выражение: '{expression}'")
-            print(f"Ошибка: {e}")
-            print(f"Статус: ✗ ОШИБКА")
-            print("-" * 40)
+        result = evaluate_postfix(expression)
+        assert result == expected, f"Тест {i} не пройден: {description}. Ожидалось {expected}, получено {result}"
+        print(f"Тест {i} ПРОЙДЕН: {description}")
+        print(f"   Выражение: '{expression}' = {result}")
+    
 
 
 def main():
@@ -862,15 +931,15 @@ def infix_to_postfix(expression):
     output = []
     
     for token in expression:
-        if token.isalnum():  # Операнд (число или переменная)
+        if token.isalnum():  
             output.append(token)
         elif token == '(':
             stack.append(token)
         elif token == ')':
             while stack and stack[-1] != '(':
                 output.append(stack.pop())
-            stack.pop()  # Удаляем '('
-        else:  # Оператор
+            stack.pop()  
+        else:  
             while (stack and stack[-1] != '(' and 
                    precedence.get(token, 0) <= precedence.get(stack[-1], 0)):
                 output.append(stack.pop())
@@ -883,37 +952,52 @@ def infix_to_postfix(expression):
 
 
 def run_five_tests():
-    """Запуск 5 тестов перевода из инфиксной в постфиксную форму"""
-    tests = [
-        # Тест 1: Простое сложение
-        ("a+b", "a b +", "Простое сложение"),
-        
-        # Тест 2: Приоритет умножения над сложением
-        ("a+b*c", "a b c * +", "Приоритет умножения"),
-        
-        # Тест 3: Выражение со скобками
-        ("(a+b)*c", "a b + c *", "Сложение в скобках с умножением"),
-        
-        # Тест 4: Сложное выражение со скобками
-        ("a+(b+c)*d", "a b c + d * +", "Сложное выражение со скобками"),
-        
-        # Тест 5: Множественные операции
-        ("a*b+c*d", "a b * c d * +", "Множественное умножение и сложение")
-    ]
-    
-    print("5 ТЕСТОВ ПЕРЕВОДА ИНФИКС → ПОСТФИКС")
+    """Запуск 5 тестов перевода из инфиксной в постфиксную форму """
+    print("5 ТЕСТОВ ПЕРЕВОДА ИНФИКС → ПОСТФИКС (")
     print("=" * 50)
     
-    for i, (infix, expected_postfix, description) in enumerate(tests, 1):
-        result = infix_to_postfix(infix)
-        status = "✓ ПРОЙДЕН" if result == expected_postfix else "✗ ОШИБКА"
-        
-        print(f"Тест {i}: {description}")
-        print(f"Инфиксная:   {infix}")
-        print(f"Постфиксная: {result}")
-        print(f"Ожидалось:   {expected_postfix}")
-        print(f"Статус: {status}")
-        print("-" * 40)
+    try:
+        result = infix_to_postfix("a+b")
+        assert result == "a b +", f"Ожидалось 'a b +', получено '{result}'"
+        print(" Тест 1 ПРОЙДЕН: Простое сложение")
+        print(f"  a+b → {result}")
+    except AssertionError as e:
+        print(f" Тест 1 ОШИБКА: {e}")
+    
+    try:
+        result = infix_to_postfix("a+b*c")
+        assert result == "a b c * +", f"Ожидалось 'a b c * +', получено '{result}'"
+        print(" Тест 2 ПРОЙДЕН: Приоритет умножения")
+        print(f"  a+b*c → {result}")
+    except AssertionError as e:
+        print(f" Тест 2 ОШИБКА: {e}")
+    
+    try:
+        result = infix_to_postfix("(a+b)*c")
+        assert result == "a b + c *", f"Ожидалось 'a b + c *', получено '{result}'"
+        print(" Тест 3 ПРОЙДЕН: Сложение в скобках с умножением")
+        print(f"  (a+b)*c → {result}")
+    except AssertionError as e:
+        print(f" Тест 3 ОШИБКА: {e}")
+    
+    try:
+        result = infix_to_postfix("a+(b+c)*d")
+        assert result == "a b c + d * +", f"Ожидалось 'a b c + d * +', получено '{result}'"
+        print(" Тест 4 ПРОЙДЕН: Сложное выражение со скобками")
+        print(f"  a+(b+c)*d → {result}")
+    except AssertionError as e:
+        print(f" Тест 4 ОШИБКА: {e}")
+    
+    try:
+        result = infix_to_postfix("a*b+c*d")
+        assert result == "a b * c d * +", f"Ожидалось 'a b * c d * +', получено '{result}'"
+        print(" Тест 5 ПРОЙДЕН: Множественное умножение и сложение")
+        print(f"  a*b+c*d → {result}")
+    except AssertionError as e:
+        print(f" Тест 5 ОШИБКА: {e}")
+    
+    print("=" * 50)
+    print("ТЕСТИРОВАНИЕ ЗАВЕРШЕНО")
 
 
 def main():
@@ -1093,11 +1177,11 @@ pushFront и popFront имеют сложность O(n) на обычном м�
 |----------|---------------|------------------|-------------------------|---------------|
 | push/enqueue/pushBack | O(1) | O(1) | O(1) | O(1) |
 | pop/dequeue/popBack | O(1) | O(1) | O(1) | O(1) |
-| pushFront | — | — | O(1) | O(1) |
-| popFront | — | — | O(1) | O(1) |
+| pushFront | O(n) | O(1) | O(1) | O(1) |
+| popFront | O(n) | O(1) | O(1) | O(1) |
 | peek | O(1) | O(1) | O(1) | O(1) |
 | isEmpty | O(1) | O(1) | O(1) | O(1) |
-*Амортизированная сложность
+*Амортизированная сложность(Идея — усреднить стоимость более «дорогих» операций по всей последовательности, чтобы средняя стоимость каждой операции оставалась постоянной или ниже.)
 
 #### 17. Константная сложность операций дека
 Все операции дека на двусвязном списке имеют O(1), потому что:
