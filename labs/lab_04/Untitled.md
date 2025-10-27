@@ -652,6 +652,559 @@ if __name__ == "__main__":
     print("Все структуры данных работают корректно.")
 ```
 
+```python
+class BaseStack:
+    """Базовый класс для стека"""
+    def push(self, item):
+        raise NotImplementedError("Метод push должен быть реализован")
+    
+    def pop(self):
+        raise NotImplementedError("Метод pop должен быть реализован")
+    
+    def peek(self):
+        raise NotImplementedError("Метод peek должен быть реализован")
+    
+    def is_empty(self):
+        raise NotImplementedError("Метод is_empty должен быть реализован")
+    
+    def size(self):
+        raise NotImplementedError("Метод size должен быть реализован")
+
+
+class BaseQueue:
+    """Базовый класс для очереди"""
+    def enqueue(self, item):
+        raise NotImplementedError("Метод enqueue должен быть реализован")
+    
+    def dequeue(self):
+        raise NotImplementedError("Метод dequeue должен быть реализован")
+    
+    def front(self):
+        raise NotImplementedError("Метод front должен быть реализован")
+    
+    def is_empty(self):
+        raise NotImplementedError("Метод is_empty должен быть реализован")
+    
+    def size(self):
+        raise NotImplementedError("Метод size должен быть реализован")
+
+
+class BaseDeque:
+    """Базовый класс для дека"""
+    def add_front(self, item):
+        raise NotImplementedError("Метод add_front должен быть реализован")
+    
+    def add_rear(self, item):
+        raise NotImplementedError("Метод add_rear должен быть реализован")
+    
+    def remove_front(self):
+        raise NotImplementedError("Метод remove_front должен быть реализован")
+    
+    def remove_rear(self):
+        raise NotImplementedError("Метод remove_rear должен быть реализован")
+    
+    def peek_front(self):
+        raise NotImplementedError("Метод peek_front должен быть реализован")
+    
+    def peek_rear(self):
+        raise NotImplementedError("Метод peek_rear должен быть реализован")
+    
+    def is_empty(self):
+        raise NotImplementedError("Метод is_empty должен быть реализован")
+    
+    def size(self):
+        raise NotImplementedError("Метод size должен быть реализован")
+
+
+""" 1. Стек на основе массива"""
+class ArrayStack(BaseStack):
+    def __init__(self):
+        self._items = []
+    
+    def push(self, item):
+        """Добавляет элемент на вершину стека"""
+        self._items.append(item)
+    
+    def pop(self):
+        """Удаляет и возвращает элемент с вершины стека"""
+        if self.is_empty():
+            raise IndexError("Стек пуст")
+        return self._items.pop()
+    
+    def peek(self):
+        """Возвращает элемент с вершины стека без удаления"""
+        if self.is_empty():
+            raise IndexError("Стек пуст")
+        return self._items[-1]
+    
+    def is_empty(self):
+        """Проверяет, пуст ли стек"""
+        return len(self._items) == 0
+    
+    def size(self):
+        """Возвращает количество элементов в стеке"""
+        return len(self._items)
+    
+    def __str__(self):
+        return f"ArrayStack({self._items})"
+
+
+""" 2. Стек на основе связного списка"""
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class LinkedListStack(BaseStack):
+    def __init__(self):
+        self._top = None
+        self._size = 0
+    
+    def push(self, item):
+        """Добавляет элемент на вершину стека"""
+        new_node = Node(item)
+        new_node.next = self._top
+        self._top = new_node
+        self._size += 1
+    
+    def pop(self):
+        """Удаляет и возвращает элемент с вершины стека"""
+        if self.is_empty():
+            raise IndexError("Стек пуст")
+        
+        data = self._top.data
+        self._top = self._top.next
+        self._size -= 1
+        return data
+    
+    def peek(self):
+        """Возвращает элемент с вершины стека без удаления"""
+        if self.is_empty():
+            raise IndexError("Стек пуст")
+        return self._top.data
+    
+    def is_empty(self):
+        """Проверяет, пуст ли стек"""
+        return self._top is None
+    
+    def size(self):
+        """Возвращает количество элементов в стеке"""
+        return self._size
+    
+    def __str__(self):
+        items = []
+        current = self._top
+        while current:
+            items.append(current.data)
+            current = current.next
+        return f"LinkedListStack({items})"
+
+
+""" 3. Очередь на основе массива """
+class ArrayQueue(BaseQueue):
+    def __init__(self):
+        self._items = []
+    
+    def enqueue(self, item):
+        """Добавляет элемент в конец очереди"""
+        self._items.append(item)
+    
+    def dequeue(self):
+        """Удаляет и возвращает элемент из начала очереди"""
+        if self.is_empty():
+            raise IndexError("Очередь пуста")
+        return self._items.pop(0)
+    
+    def front(self):
+        """Возвращает элемент из начала очереди без удаления"""
+        if self.is_empty():
+            raise IndexError("Очередь пуста")
+        return self._items[0]
+    
+    def is_empty(self):
+        """Проверяет, пуста ли очередь"""
+        return len(self._items) == 0
+    
+    def size(self):
+        """Возвращает количество элементов в очереди"""
+        return len(self._items)
+    
+    def __str__(self):
+        return f"ArrayQueue({self._items})"
+
+
+""" 4. Очередь на основе связного списка"""
+class LinkedListQueue(BaseQueue):
+    def __init__(self):
+        self._front = None
+        self._rear = None
+        self._size = 0
+    
+    def enqueue(self, item):
+        """Добавляет элемент в конец очереди"""
+        new_node = Node(item)
+        
+        if self.is_empty():
+            self._front = self._rear = new_node
+        else:
+            self._rear.next = new_node
+            self._rear = new_node
+        
+        self._size += 1
+    
+    def dequeue(self):
+        """Удаляет и возвращает элемент из начала очереди"""
+        if self.is_empty():
+            raise IndexError("Очередь пуста")
+        
+        data = self._front.data
+        self._front = self._front.next
+        
+        if self._front is None:
+            self._rear = None
+        
+        self._size -= 1
+        return data
+    
+    def front(self):
+        """Возвращает элемент из начала очереди без удаления"""
+        if self.is_empty():
+            raise IndexError("Очередь пуста")
+        return self._front.data
+    
+    def is_empty(self):
+        """Проверяет, пуста ли очередь"""
+        return self._front is None
+    
+    def size(self):
+        """Возвращает количество элементов в очереди"""
+        return self._size
+    
+    def __str__(self):
+        items = []
+        current = self._front
+        while current:
+            items.append(current.data)
+            current = current.next
+        return f"LinkedListQueue({items})"
+
+
+""" 5. Дек на основе массива"""
+class ArrayDeque(BaseDeque):
+    def __init__(self):
+        self._items = []
+    
+    def add_front(self, item):
+        """Добавляет элемент в начало дека"""
+        self._items.insert(0, item)
+    
+    def add_rear(self, item):
+        """Добавляет элемент в конец дека"""
+        self._items.append(item)
+    
+    def remove_front(self):
+        """Удаляет и возвращает элемент из начала дека"""
+        if self.is_empty():
+            raise IndexError("Дек пуст")
+        return self._items.pop(0)
+    
+    def remove_rear(self):
+        """Удаляет и возвращает элемент из конца дека"""
+        if self.is_empty():
+            raise IndexError("Дек пуст")
+        return self._items.pop()
+    
+    def peek_front(self):
+        """Возвращает элемент из начала дека без удаления"""
+        if self.is_empty():
+            raise IndexError("Дек пуст")
+        return self._items[0]
+    
+    def peek_rear(self):
+        """Возвращает элемент из конца дека без удаления"""
+        if self.is_empty():
+            raise IndexError("Дек пуст")
+        return self._items[-1]
+    
+    def is_empty(self):
+        """Проверяет, пуст ли дек"""
+        return len(self._items) == 0
+    
+    def size(self):
+        """Возвращает количество элементов в деке"""
+        return len(self._items)
+    
+    def __str__(self):
+        return f"ArrayDeque({self._items})"
+
+
+""" 6. Дек на основе связного списка """
+class LinkedListDeque(BaseDeque):
+    def __init__(self):
+        self._front = None
+        self._rear = None
+        self._size = 0
+    
+    def add_front(self, item):
+        """Добавляет элемент в начало дека"""
+        new_node = Node(item)
+        
+        if self.is_empty():
+            self._front = self._rear = new_node
+        else:
+            new_node.next = self._front
+            self._front = new_node
+        
+        self._size += 1
+    
+    def add_rear(self, item):
+        """Добавляет элемент в конец дека"""
+        new_node = Node(item)
+        
+        if self.is_empty():
+            self._front = self._rear = new_node
+        else:
+            self._rear.next = new_node
+            self._rear = new_node
+        
+        self._size += 1
+    
+    def remove_front(self):
+        """Удаляет и возвращает элемент из начала дека"""
+        if self.is_empty():
+            raise IndexError("Дек пуст")
+        
+        data = self._front.data
+        self._front = self._front.next
+        
+        if self._front is None:
+            self._rear = None
+        
+        self._size -= 1
+        return data
+    
+    def remove_rear(self):
+        """Удаляет и возвращает элемент из конца дека"""
+        if self.is_empty():
+            raise IndexError("Дек пуст")
+        
+        """Если в деке только один элемент"""
+        if self._front == self._rear:
+            data = self._front.data
+            self._front = self._rear = None
+            self._size -= 1
+            return data
+        
+        """Находим предпоследний элемент"""
+        current = self._front
+        while current.next != self._rear:
+            current = current.next
+        
+        data = self._rear.data
+        self._rear = current
+        self._rear.next = None
+        self._size -= 1
+        return data
+    
+    def peek_front(self):
+        """Возвращает элемент из начала дека без удаления"""
+        if self.is_empty():
+            raise IndexError("Дек пуст")
+        return self._front.data
+    
+    def peek_rear(self):
+        """Возвращает элемент из конца дека без удаления"""
+        if self.is_empty():
+            raise IndexError("Дек пуст")
+        return self._rear.data
+    
+    def is_empty(self):
+        """Проверяет, пуст ли дек"""
+        return self._front is None
+    
+    def size(self):
+        """Возвращает количество элементов в деке"""
+        return self._size
+    
+    def __str__(self):
+        items = []
+        current = self._front
+        while current:
+            items.append(current.data)
+            current = current.next
+        return f"LinkedListDeque({items})"
+
+
+
+if __name__ == "__main__":
+    print("=== ТЕСТИРОВАНИЕ СТРУКТУР ДАННЫХ ===\n")
+    
+    """1. Стек на массиве"""
+    print("1. Тестирование ArrayStack:")
+    stack1 = ArrayStack()
+    
+    """Тест добавления"""
+    stack1.push(1)
+    stack1.push(2)
+    stack1.push(3)
+    assert str(stack1) == "ArrayStack([1, 2, 3])", "Ошибка добавления в стек"
+    
+    """Тест просмотра"""
+    assert stack1.peek() == 3, "Ошибка peek()"
+    
+    """ Тест удаления"""
+    assert stack1.pop() == 3, "Ошибка pop()"
+    assert stack1.size() == 2, "Ошибка размера после pop()"
+    
+    """Тест пустоты"""
+    assert not stack1.is_empty(), "Ошибка is_empty()"
+    
+    """Очистка и проверка пустого стека"""
+    stack1.pop()
+    stack1.pop()
+    assert stack1.is_empty(), "Стек должен быть пустым"
+    assert stack1.size() == 0, "Размер должен быть 0"
+    
+    print("   ✓ Все тесты ArrayStack пройдены\n")
+    
+    """ 2. Стек на связном списке """
+    print("2. Тестирование LinkedListStack:")
+    stack2 = LinkedListStack()
+    
+    """Тест добавления"""
+    stack2.push('a')
+    stack2.push('b')
+    stack2.push('c')
+    assert str(stack2) == "LinkedListStack(['c', 'b', 'a'])", "Ошибка добавления в связный стек"
+    
+    """ Тест просмотра"""
+    assert stack2.peek() == 'c', "Ошибка peek() в связном стеке"
+    
+    """Тест удаления """
+    assert stack2.pop() == 'c', "Ошибка pop() в связном стеке"
+    assert stack2.size() == 2, "Ошибка размера после pop()"
+    
+    print("  Все тесты LinkedListStack пройдены\n")
+    
+    """ 3. Очередь на массиве"""
+    print("3. Тестирование ArrayQueue:")
+    queue1 = ArrayQueue()
+    
+    """Тест добавления"""
+    queue1.enqueue(10)
+    queue1.enqueue(20)
+    queue1.enqueue(30)
+    assert str(queue1) == "ArrayQueue([10, 20, 30])", "Ошибка добавления в очередь"
+    
+    """Тест просмотра"""
+    assert queue1.front() == 10, "Ошибка front()"
+    
+    """Тест удаления """
+    assert queue1.dequeue() == 10, "Ошибка dequeue()"
+    assert queue1.size() == 2, "Ошибка размера после dequeue()"
+    assert queue1.front() == 20, "Ошибка front() после dequeue()"
+    
+    print("    Все тесты ArrayQueue пройдены\n")
+    
+    """4. Очередь на связном списке"""
+    print("4. Тестирование LinkedListQueue:")
+    queue2 = LinkedListQueue()
+    
+    """Тест добавления"""
+    queue2.enqueue('x')
+    queue2.enqueue('y')
+    queue2.enqueue('z')
+    assert str(queue2) == "LinkedListQueue(['x', 'y', 'z'])", "Ошибка добавления в связную очередь"
+    
+    """Тест просмотра"""
+    assert queue2.front() == 'x', "Ошибка front() в связной очереди"
+    
+    """Tест удаления"""
+    assert queue2.dequeue() == 'x', "Ошибка dequeue() в связной очереди"
+    assert queue2.size() == 2, "Ошибка размера после dequeue()"
+    assert queue2.front() == 'y', "Ошибка front() после dequeue()"
+    
+    print("  Все тесты LinkedListQueue пройдены\n")
+    
+    """5. Дек на массиве"""
+    print("5. Тестирование ArrayDeque:")
+    deque1 = ArrayDeque()
+    
+    """Тест добавления спереди и сзади"""
+    deque1.add_front(1)
+    deque1.add_rear(2)
+    deque1.add_front(0)
+    deque1.add_rear(3)
+    assert str(deque1) == "ArrayDeque([0, 1, 2, 3])", "Ошибка добавления в дек"
+    
+    """Тест просмотра"""
+    assert deque1.peek_front() == 0, "Ошибка peek_front()"
+    assert deque1.peek_rear() == 3, "Ошибка peek_rear()"
+    
+    """Тест удаления"""
+    assert deque1.remove_front() == 0, "Ошибка remove_front()"
+    assert deque1.remove_rear() == 3, "Ошибка remove_rear()"
+    assert deque1.size() == 2, "Ошибка размера после удалений"
+    assert str(deque1) == "ArrayDeque([1, 2])", "Ошибка состояния дека после удалений"
+    
+    print("  Все тесты ArrayDeque пройдены\n")
+    
+    """6. Дек на связном списке"""
+    print("6. Тестирование LinkedListDeque:")
+    deque2 = LinkedListDeque()
+    
+    """Тест добавления"""
+    deque2.add_front(100)
+    deque2.add_rear(200)
+    deque2.add_front(50)
+    deque2.add_rear(300)
+    assert str(deque2) == "LinkedListDeque([50, 100, 200, 300])", "Ошибка добавления в связный дек"
+    
+    """ Тест просмотра"""
+    assert deque2.peek_front() == 50, "Ошибка peek_front() в связном деке"
+    assert deque2.peek_rear() == 300, "Ошибка peek_rear() в связном деке"
+    
+    """Тест удаления"""
+    assert deque2.remove_front() == 50, "Ошибка remove_front() в связном деке"
+    assert deque2.remove_rear() == 300, "Ошибка remove_rear() в связном деке"
+    assert deque2.size() == 2, "Ошибка размера после удалений"
+    assert str(deque2) == "LinkedListDeque([100, 200])", "Ошибка состояния связного дека после удалений"
+    
+    print("  Все тесты LinkedListDeque пройдены\n")
+    
+    """ 7. Тестирование исключений"""
+    print("7. Тестирование исключений:")
+    
+    """Тест пустого стека"""
+    empty_stack = ArrayStack()
+    try:
+        empty_stack.pop()
+        assert False, "Должно быть исключение при pop() пустого стека"
+    except IndexError:
+        pass  #Ожидаемое поведение
+    
+    """Тест пустой очереди"""
+    empty_queue = ArrayQueue()
+    try:
+        empty_queue.dequeue()
+        assert False, "Должно быть исключение при dequeue() пустой очереди"
+    except IndexError:
+        pass  #Ожидаемое поведение
+    
+    """Тест пустого дека"""
+    empty_deque = ArrayDeque()
+    try:
+        empty_deque.remove_front()
+        assert False, "Должно быть исключение при remove_front() пустого дека"
+    except IndexError:
+        pass  #Ожидаемое поведение
+    
+    print("   Все тесты исключений пройдены\n")
+    
+    print("Все структуры данных работают корректно.")
+```
+
 ### Сводная таблица временной сложности операций
 
 | Структура | Добавление | Удаление | Просмотр | Пустота | Размер |
