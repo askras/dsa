@@ -178,32 +178,13 @@ class Graph:
                     edges.append((vertex, neighbor))
         return edges
 
-def test_graph_operations():
-    """Тест основных операций с графом"""
-    print("=== ТЕСТ 1: ОСНОВНЫЕ ОПЕРАЦИИ ===")
-    g = Graph()
-    
-    # Добавление вершин и ребер
-    g.add_vertex('A')
-    g.add_edge('A', 'B')
-    g.add_edge('B', 'C')
-    g.add_edge('C', 'D')
-    
-    # Проверка структуры графа
-    assert 'A' in g.get_vertices()
-    assert 'B' in g.get_vertices()
-    assert 'C' in g.get_vertices()
-    assert ('A', 'B') in g.get_edges()
-    assert ('B', 'C') in g.get_edges()
-    
-    print("✓ Тест основных операций пройден")
 
 def test_graph_algorithms():
     """Тест алгоритмов обхода"""
-    print("=== ТЕСТ 2: АЛГОРИТМЫ ОБХОДА ===")
+    print("=== ТЕСТ: АЛГОРИТМЫ ОБХОДА ===")
     g = Graph()
     
-    # Создаем граф: A-B-C-D, A-E
+    
     g.add_edge('A', 'B')
     g.add_edge('B', 'C')
     g.add_edge('C', 'D')
@@ -223,22 +204,22 @@ def test_graph_algorithms():
     path = g.find_path_bfs('A', 'D')
     assert path == ['A', 'B', 'C', 'D'] or path == ['A', 'E', 'D']
     
-    print("✓ Тест алгоритмов обхода пройден")
+    print(" Тест алгоритмов обхода пройден")
 
-# Демонстрация работы
+
 if __name__ == "__main__":
     print("=== ЗАДАНИЕ 1: КЛАСС GRAPH С АЛГОРИТМАМИ ОБХОДА ===")
     
-    # Запуск тестов
-    test_graph_operations()
+    
+   
     test_graph_algorithms()
     
-    print("\n=== ДЕМОНСТРАЦИЯ РАБОТЫ ===")
+    print("\n=== ДЕМОНСТРАЦИЯ ===")
     
-    # Создаем граф
+    
     g = Graph()
     
-    # Добавляем вершины и ребра
+    
     g.add_edge('A', 'B')
     g.add_edge('A', 'C')
     g.add_edge('B', 'D')
@@ -246,18 +227,18 @@ if __name__ == "__main__":
     g.add_edge('D', 'E')
     g.add_edge('E', 'F')
     
-    # Отображаем граф
+    
     g.display()
     
-    # Тестируем алгоритмы обхода
+    
     print(f"\nDFS обход от 'A': {g.dfs('A')}")
     print(f"BFS обход от 'A': {g.bfs('A')}")
     
-    # Тестируем поиск путей
+    
     print(f"\nПоиск пути от 'A' до 'F' (DFS): {g.find_path_dfs('A', 'F')}")
     print(f"Поиск пути от 'A' до 'F' (BFS): {g.find_path_bfs('A', 'F')}")
     
-    print("\n✓ Все тесты пройдены успешно!")
+    print("\n Все тесты пройдены успешно!")
 ```
 
 ## Задание 2 
@@ -273,9 +254,9 @@ class SimpleGraph:
         """Добавить вершину"""
         if vertex not in self.adjacency_list:
             self.adjacency_list[vertex] = []
-            print(f"✓ Вершина '{vertex}' добавлена")
+            print(f" Вершина '{vertex}' добавлена")
         else:
-            print(f"✗ Вершина '{vertex}' уже существует")
+            print(f" Вершина '{vertex}' уже существует")
     
     def add_edge(self, vertex1, vertex2):
         """Добавить ребро между двумя вершинами"""
@@ -287,9 +268,9 @@ class SimpleGraph:
         if vertex2 not in self.adjacency_list[vertex1]:
             self.adjacency_list[vertex1].append(vertex2)
             self.adjacency_list[vertex2].append(vertex1)  # Неориентированный граф
-            print(f"✓ Ребро между '{vertex1}' и '{vertex2}' добавлено")
+            print(f" Ребро между '{vertex1}' и '{vertex2}' добавлено")
         else:
-            print(f"✗ Ребро между '{vertex1}' и '{vertex2}' уже существует")
+            print(f" Ребро между '{vertex1}' и '{vertex2}' уже существует")
     
     def show_graph(self):
         """Показать граф"""
@@ -357,10 +338,10 @@ class SimpleGraph:
     def find_path(self, start_vertex, target_vertex):
         """Найти путь между двумя вершинами"""
         if start_vertex not in self.adjacency_list:
-            print(f"✗ Вершина '{start_vertex}' не найдена")
+            print(f" Вершина '{start_vertex}' не найдена")
             return None
         if target_vertex not in self.adjacency_list:
-            print(f"✗ Вершина '{target_vertex}' не найдена")
+            print(f" Вершина '{target_vertex}' не найдена")
             return None
         
         visited = set()
@@ -370,7 +351,7 @@ class SimpleGraph:
             current, path = queue.popleft()
             
             if current == target_vertex:
-                print(f"✓ Путь от '{start_vertex}' до '{target_vertex}': {' -> '.join(path)}")
+                print(f" Путь от '{start_vertex}' до '{target_vertex}': {' -> '.join(path)}")
                 return path
             
             if current not in visited:
@@ -380,7 +361,7 @@ class SimpleGraph:
                     if neighbor not in visited:
                         queue.append((neighbor, path + [neighbor]))
         
-        print(f"✗ Путь от '{start_vertex}' до '{target_vertex}' не найден")
+        print(f" Путь от '{start_vertex}' до '{target_vertex}' не найден")
         return None
 
 def test_simple_graph():
@@ -400,7 +381,7 @@ def test_simple_graph():
     g.dfs('A')
     g.find_path('A', 'C')
     
-    print("✓ Простой тест завершен")
+    print(" тест завершен")
 
 def test_path_finding():
     """Тест поиска пути"""
@@ -413,22 +394,22 @@ def test_path_finding():
     g.add_edge('C', 'D')
     g.add_edge('A', 'E')
     
-    # Ищем путь
+   
     path = g.find_path('A', 'D')
     assert path is not None, "Путь должен существовать"
     assert path[0] == 'A', "Начало пути должно быть A"
     assert path[-1] == 'D', "Конец пути должен быть D"
     
-    print("✓ Тест поиска пути завершен")
+    print(" Тест поиска пути завершен")
 
 def main():
     """Главное меню приложения"""
     graph = SimpleGraph()
     
-    print("=== ПРОСТОЕ ПРИЛОЖЕНИЕ ДЛЯ РАБОТЫ С ГРАФАМИ ===")
+    print("=== ПРИЛОЖЕНИЕ ДЛЯ РАБОТЫ С ГРАФАМИ ===")
     print("Создавайте графы и изучайте алгоритмы обхода!")
     
-    # Создаем пример графа для демонстрации
+    # Создаем пример графа 
     print("\nСоздаем пример графа...")
     graph.add_edge('Москва', 'Санкт-Петербург')
     graph.add_edge('Москва', 'Казань')
@@ -481,183 +462,26 @@ def main():
             print("Создан новый пустой граф")
             
         elif choice == "0":
-            print("До свидания!")
+            print("Пока!")
             break
             
         else:
             print("Неверный выбор. Попробуйте снова.")
 
 if __name__ == "__main__":
-    # Запускаем тесты
+    
     test_simple_graph()
     test_path_finding()
     
-    print("\n✓ Все тесты пройдены!")
+    print("\n Все тесты пройдены!")
     print("Запуск приложения...\n")
     
-    # Запускаем приложение
+    
     main()
 ```
 
 ## Задание 3 
 
-```python
-from collections import deque
-
-class Graph:
-    def __init__(self, directed=False):
-        self.adjacency_list = {}
-        self.directed = directed
-    
-    def add_vertex(self, vertex):
-        if vertex not in self.adjacency_list:
-            self.adjacency_list[vertex] = []
-            return True
-        return False
-    
-    def add_edge(self, vertex1, vertex2):
-        if vertex1 not in self.adjacency_list:
-            self.add_vertex(vertex1)
-        if vertex2 not in self.adjacency_list:
-            self.add_vertex(vertex2)
-        
-        if vertex2 not in self.adjacency_list[vertex1]:
-            self.adjacency_list[vertex1].append(vertex2)
-        
-        if not self.directed and vertex1 not in self.adjacency_list[vertex2]:
-            self.adjacency_list[vertex2].append(vertex1)
-    
-    def display(self):
-        print("Граф (список смежности):")
-        for vertex in sorted(self.adjacency_list.keys()):
-            print(f"{vertex}: {sorted(self.adjacency_list[vertex])}")
-    
-    def bfs(self, start_vertex):
-        if start_vertex not in self.adjacency_list:
-            return []
-        
-        visited = set()
-        queue = deque([start_vertex])
-        result = []
-        
-        while queue:
-            current_vertex = queue.popleft()
-            
-            if current_vertex not in visited:
-                visited.add(current_vertex)
-                result.append(current_vertex)
-                
-                for neighbor in self.adjacency_list[current_vertex]:
-                    if neighbor not in visited:
-                        queue.append(neighbor)
-        
-        return result
-    
-    def get_vertices(self):
-        return list(self.adjacency_list.keys())
-
-def analyze_connectivity(graph):
-    """
-    Анализ компонент связности графа
-    Возвращает список компонент связности
-    """
-    if not graph:
-        return []
-    
-    visited = set()
-    components = []
-    
-    for vertex in graph.get_vertices():
-        if vertex not in visited:
-            component = graph.bfs(vertex)
-            components.append(component)
-            visited.update(component)
-    
-    return components
-
-def is_connected_graph(graph):
-    """
-    Проверка, является ли граф связным
-    """
-    components = analyze_connectivity(graph)
-    return len(components) == 1
-
-def test_connected_graph():
-    """Тест связного графа"""
-    print("=== ТЕСТ 1: СВЯЗНЫЙ ГРАФ ===")
-    g = Graph()
-    g.add_edge(1, 2)
-    g.add_edge(2, 3)
-    g.add_edge(3, 4)
-    g.add_edge(4, 1)
-    
-    components = analyze_connectivity(g)
-    assert len(components) == 1, "Связный граф должен иметь 1 компоненту"
-    assert is_connected_graph(g) == True, "Граф должен быть связным"
-    
-    print("✓ Тест связного графа пройден")
-
-def test_disconnected_graph():
-    """Тест несвязного графа"""
-    print("=== ТЕСТ 2: НЕСВЯЗНЫЙ ГРАФ ===")
-    g = Graph()
-    g.add_edge(1, 2)
-    g.add_edge(2, 3)
-    g.add_edge(4, 5)
-    g.add_edge(5, 6)
-    
-    components = analyze_connectivity(g)
-    assert len(components) == 2, "Несвязный граф должен иметь 2 компоненты"
-    assert is_connected_graph(g) == False, "Граф не должен быть связным"
-    
-    # Проверяем состав компонент
-    component_sizes = [len(comp) for comp in components]
-    assert 3 in component_sizes, "Должна быть компонента размера 3"
-    
-    print("✓ Тест несвязного графа пройден")
-
-def demonstrate_analysis():
-    """
-    Демонстрация работы анализа связности
-    """
-    print("=== ЗАДАНИЕ 3: АНАЛИЗ КОМПОНЕНТ СВЯЗНОСТИ ===")
-    
-    # Создаем тестовые графы
-    print("\n1. Связный граф:")
-    g1 = Graph()
-    g1.add_edge('A', 'B')
-    g1.add_edge('A', 'C')
-    g1.add_edge('B', 'D')
-    g1.add_edge('C', 'E')
-    g1.add_edge('D', 'E')
-    g1.display()
-    
-    components1 = analyze_connectivity(g1)
-    print(f"Компоненты связности: {components1}")
-    print(f"Граф связный: {is_connected_graph(g1)}")
-    
-    print("\n2. Несвязный граф (2 компоненты):")
-    g2 = Graph()
-    g2.add_edge('A', 'B')
-    g2.add_edge('B', 'C')
-    g2.add_edge('D', 'E')
-    g2.add_edge('E', 'F')
-    g2.display()
-    
-    components2 = analyze_connectivity(g2)
-    print(f"Компоненты связности: {components2}")
-    print(f"Граф связный: {is_connected_graph(g2)}")
-
-if __name__ == "__main__":
-    # Запуск тестов
-    test_connected_graph()
-    test_disconnected_graph()
-    
-    print("\n✓ Все тесты пройдены! Демонстрация работы...")
-    
-    # Демонстрация работы
-    demonstrate_analysis()
-```
 
 ## Задание 4: Поиск кратчайшего пути BFS (1→6) 
 
@@ -698,7 +522,7 @@ def dijkstra(graph, start, end):
         return None, float('inf')
     return path, distances[end]
 
-# Ориентированный граф
+
 graph = {
     1: [(2, 1), (4, 8), (5, 25), (7, 20)],
     2: [(3, 2), (7, 15)],
@@ -807,40 +631,40 @@ class DijkstraAlgorithm:
         Returns:
             tuple: (путь, длина) или (None, inf) если путь не существует
         """
-        # Проверка существования вершин
+        """ Проверка существования вершин """
         if start not in self.graph or end not in self.graph:
             return None, float('inf')
         
-        # Инициализация
+        """ Инициализация"""
         self.distances = {node: float('inf') for node in self.graph}
         self.previous = {node: None for node in self.graph}
         self.distances[start] = 0
         self.visited = set()
         
-        # Очередь с приоритетом (мин-куча)
+        """ Очередь с приоритетом (мин-куча) """
         priority_queue = [(0, start)]
         
         while priority_queue:
             current_distance, current_node = heapq.heappop(priority_queue)
             
-            # Пропускаем устаревшие записи
+            """ Пропускаем устаревшие записи """
             if current_distance > self.distances[current_node]:
                 continue
                 
-            # Если достигли конечной вершины
+           
             if current_node == end:
                 break
                 
             self.visited.add(current_node)
             
-            # Обработка соседей текущей вершины
+            """ Обработка соседей текущей вершины """
             for neighbor, weight in self.graph.get(current_node, []):
                 if neighbor in self.visited:
                     continue
                     
                 new_distance = current_distance + weight
                 
-                # Обновление расстояния если нашли короче
+                """ Обновление расстояния если нашли короче """
                 if new_distance < self.distances[neighbor]:
                     self.distances[neighbor] = new_distance
                     self.previous[neighbor] = current_node
@@ -856,14 +680,14 @@ class DijkstraAlgorithm:
         path = []
         current = end
         
-        # Восстанавливаем путь в обратном порядке
+        """ Восстанавливаем путь в обратном порядке """
         while current is not None:
             path.append(current)
             current = self.previous[current]
         
         path.reverse()
         
-        # Проверка что путь начинается с start
+        
         if path[0] != start:
             return None, float('inf')
             
@@ -882,7 +706,7 @@ class DijkstraAlgorithm:
             print(f"Пути из {start} в {end} не существует")
 
 
-# Граф из задания 5 (ориентированный)
+
 graph_task5 = {
     1: [(2, 12), (7, 2), (3, 20)],
     2: [(1, 12), (8, 12)],
@@ -898,10 +722,10 @@ def main():
     print("Алгоритм Дейкстры - поиск кратчайшего пути")
     print("=" * 50)
     
-    # Создаем экземпляр алгоритма
+    
     dijkstra = DijkstraAlgorithm(graph_task5)
     
-    # Поиск пути между вершинами 2 и 8
+   
     start_vertex = 2
     end_vertex = 8
     
@@ -913,10 +737,10 @@ def main():
             print(f"  {node} → {neighbor} (вес: {weight})")
     print()
     
-    # Находим и выводим путь
+    
     dijkstra.print_path_info(start_vertex, end_vertex)
     
-    # Дополнительная информация
+   
     print(f"\nРасстояния от вершины {start_vertex}:")
     for node in sorted(dijkstra.distances.keys()):
         dist = dijkstra.distances[node]
@@ -927,8 +751,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
-
-```python
-
 ```

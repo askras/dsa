@@ -15,8 +15,11 @@ jupyter:
 # **Линейные списки (Linked list)**
 
 
-## **Цель работы**
+Асонов Сергей ИУ10-36
 
+<!-- #raw -->
+## **Цель работы**
+<!-- #endraw -->
 
 изучение структуры данных «Линейные списки», а также основных операций над ними.
 
@@ -472,9 +475,9 @@ class SingleLinkedList_v6(SingleLinkedList_v5):
 
 
 
-
+ """Tестирование связных списков"""
 def test_linked_lists():
-    """Компактное тестирование связных списков"""
+
     
     print("ТЕСТИРОВАНИЕ СВЯЗНЫХ СПИСКОВ")
     print("=" * 40)
@@ -786,9 +789,9 @@ def complete_sort(lst):
                 swapped = True
             current_node = current_node.next
 
-
+"""Тестирование сортировки для V7"""
 def test_v7_sorting():
-    """Тестирование сортировки для V7"""
+    
     print("\nТЕСТИРОВАНИЕ СОРТИРОВКИ V7")
     print("=" * 45)
     
@@ -2118,5 +2121,13 @@ node->next = node->next->next;
 ```
 
 ```python
+def summ(a, b):
+    return a - b
 
+
+assert summ(2, 3) == 5, "Шеф все пропало"
+```
+
+```python
+python -o ghjkl.py
 ```
