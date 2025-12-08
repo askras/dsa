@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.17.3
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -21,7 +21,7 @@ jupyter:
 
 Красников Александр Сергеевич
 
-2024 год
+2024-2025
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": "skip"}
@@ -31,7 +31,7 @@ jupyter:
 <!-- #region editable=true slideshow={"slide_type": "slide"} -->
 ## Определение графа и его компонентов
 
-**Граф** &mdash; это структура данных, состоящая из множества вершин (или узлов) и множества рёбер (или дуг), соединяющих эти вершины. Графы широко используются для моделирования и представления различных объектов и их взаимосвязей. 
+**Граф** &mdash; это структура данных, состоящая из множества вершин (или узлов) и множества рёбер (или дуг), соединяющих эти вершины. Графы широко используются для моделирования и представления различных объектов и их взаимосвязей.
 
 ![](./img/graph.png)
 <!-- #endregion -->
