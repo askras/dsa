@@ -12,7 +12,8 @@ kernelspec:
   name: python3
 ---
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 # Лекция 7. Связные списки
 
 Алгоритмы и структуры данных
@@ -21,25 +22,30 @@ kernelspec:
 
 Красников Александр Сергеевич
 
-2024 год
-<!-- #endregion -->
+2024-2025
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 from typing import Any, Self
 
 import doctest
 ```
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Список
 В информатике, список (list) &mdash; это абстрактный тип данных, представляющий собой упорядоченный набор значений, в котором некоторое значение может встречаться более одного раза.
 
 Экземпляр списка является компьютерной реализацией математического понятия конечной последовательности.
 
 Экземпляры значений, находящихся в списке, называются элементами списка (item, entry, element); если значение встречается несколько раз, каждое вхождение считается отдельным элементом.
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Связный список
 
 **Связный список** &mdash; базовая динамическая структура данных в информатике, состоящая из узлов, содержащих данные и ссылки (&laquo;связки&raquo;) на следующий и/или предыдущий узел списка.
@@ -47,9 +53,9 @@ import doctest
 ![](./img/single_linked_list.png)
 
 Принципиальным преимуществом перед массивом является структурная гибкость: порядок элементов связного списка может не совпадать с порядком расположения элементов данных в памяти компьютера, а порядок обхода списка всегда явно задаётся его внутренними связями.
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "subslide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Линейный односвязный (однонаправленный) список
 
 - элементов одного типа
@@ -61,9 +67,9 @@ import doctest
 - в односвязном списке можно передвигаться только в сторону конца списка
 - узнать адрес предыдущего элемента, опираясь на содержимое текущего узла, невозможно
 - пространство, занимаемое однонаправленным связным списписком, содержащим $n$ элементов &mdash; $O(n)$,
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "subslide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 Связный список относится к рекурсивным структурам данных, поскольку его определение рекурсивно.
 
 Связный список представляет собой либо
@@ -72,13 +78,17 @@ import doctest
 - узел, содержащий данные и ссылку на связный список.
 
 Рекурсивные структуры данных могут обрабатываться рекурсивными методами.
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Класс Node
-<!-- #endregion -->
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 class Node:
     '''Узел списка
 
@@ -126,32 +136,62 @@ class Node:
 doctest.testmod()
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 node3 = Node(3)
 node3
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 node2 = Node(data=2, next=node3)
 node2
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 node1 = Node(None, None)
 node1
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 node1.data = 1
 node1
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 node1.next = node2
 node1
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 def print_list(node):
     while node is not None:
         print(node)
@@ -160,26 +200,28 @@ def print_list(node):
 print_list(node1)
 ```
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Линейный односвязный список (Версия 1)
 
 Линейный односвязный список &mdash; абстрактный тип данных, который поддерживает следующие операции:
 
-- **`init() -> SingleLinkedList`**
-<br>Возвращает пустой односвязный список.
+- **`init() -> SingleLinkedList`** <br>Возвращает пустой односвязный список.
 
-- **`insert_first_node(ValueType value) -> None`**
-<br>Добавить узел в начало списка.
-- **`remove_first_node() -> ValueType`**
-<br>Удалить первый узел списка и вернуть его значение.
+- **`insert_first_node(ValueType value) -> None`** <br>Добавить узел в начало списка.
 
-- **`insert_last_node(ValueType value) -> None`**
-<br>Добавить узел в конец списка.
-- **`remove_last_node() -> ValueType`**
-<br>Удалить последний элемент списка.
-<!-- #endregion -->
+- **`remove_first_node() -> ValueType`** <br>Удалить первый узел списка и вернуть его значение.
 
-```python editable=true slideshow={"slide_type": ""}
+- **`insert_last_node(ValueType value) -> None`** <br>Добавить узел в конец списка.
+
+- **`remove_last_node() -> ValueType`** <br>Удалить последний элемент списка.
+
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 class SingleLinkedList_v1:
     '''Реализация АТД Односвязный линейный список  (SingleLinkedList_v1)
 
@@ -268,46 +310,87 @@ class SingleLinkedList_v1:
 doctest.testmod()
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 SingleLinkedList_v1()
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 list1 = SingleLinkedList_v1()
 list1
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 list1.insert_first_node(2)
 list1
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 list1.insert_first_node(1)
 print(list1)
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 list1.insert_first_node(0)
 print(list1)
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 list1.insert_last_node(3)
 print(list1)
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 list1.remove_first_node()
 print(list1)
 ```
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 list1.remove_last_node()
 print(list1)
 ```
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 | Операция | Сложность |
 |----------|-----------|
 |`insert_first_node`   | $O(1)$ |
@@ -316,27 +399,23 @@ print(list1)
 |`remove_last_element` | $O(n)$ |
 
 ![](./img/linked_list_head.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Линейный односвязный список (Версия 2). Наследуется от версии 1
 
-- **`get_size() -> Integer`**
-<br> Вернуть длину списка
+- **`get_size() -> Integer`**<br> Вернуть длину списка
 
-- **`find_node(ValueType value) -> ValueType`**
-<br>Найти (первый) узел по его значению и вернуть значение (связанные элементы).
+- **`find_node(ValueType value) -> ValueType`**<br>Найти (первый) узел по его значению и вернуть значение (связанные элементы).
 
-- **`replace_node(ValueType old_value, ValueType new_value) -> None`**
-<br>Найти (первый) узел по его значению и заменить его значение новым.
+- **`replace_node(ValueType old_value, ValueType new_value) -> None`**<br>Найти (первый) узел по его значению и заменить его значение новым.
 
-- **`remove_node(ValueType value) -> ValueType`**
-<br>Найти (первый) узел по его значению и удалить его.
+- **`remove_node(ValueType value) -> ValueType`**<br>Найти (первый) узел по его значению и удалить его.
 
 ![](./img/linked_list_head.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 **Сложность**
 
 | Операция     | 1й узел | $k$й узел | $n$й узел |
@@ -349,9 +428,9 @@ print(list1)
 При условии, что уже получен доступ к $k$—й записи &mdash; операции сложностью $O(n)$
 
 ![](./img/linked_list_head.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Линейный односвязный список (Версия 3). Наследуется от версии 2
 
 Если сохранять значения длины и обновлять его при выполнении каждой операции, то
@@ -361,40 +440,29 @@ print(list1)
 |`get_size`    | $O(1)$  | $O(1)$    | $O(1)$    |
 
 ![](./img/linked_list_head_size.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Линейный односвязный список (Версия 4). Наследуется от версии 3
 
-- **`find_previos_node(ValueType value) -> ValueType`**
-<br>Найти (первый) узел по его значению и вернуть значение из предудущего узла (если такой есть).
+- **`find_previos_node(ValueType value) -> ValueType`**<br>Найти (первый) узел по его значению и вернуть значение из предудущего узла (если такой есть).
 
-- **`find_next_node(ValueType value) -> ValueType`**
-<br>Найти (первый) узел по его значению и вернуть значение из следующего узла (если такой есть).
+- **`find_next_node(ValueType value) -> ValueType`**<br>Найти (первый) узел по его значению и вернуть значение из следующего узла (если такой есть).
 
+- **`insert_before_node(ValueType value) -> None`**<br>Найти (первый) узел по его значению и добавить узел перед ним. (Если узел не найден, ничего не делать)
 
-- **`insert_before_node(ValueType value) -> None`**
-<br>Найти (первый) узел по его значению и добавить узел перед ним. (Если узел не найден, ничего не делать)
+- **`insert_after_node(ValueType value) -> None`**<br>Найти (первый) узел по его значению и добавить узел после него. (Если узел не найден, ничего не делать)
 
-- **`insert_after_node(ValueType value) -> None`**
-<br>Найти (первый) узел по его значению и добавить узел после него. (Если узел не найден, ничего не делать)
+- **`replace_previos_node(ValueType old_value, ValueType new_value) -> None`**<br>Найти (первый) узел по его значению и заменить значение в предыдущем узле на новое.
 
+- **`replace_next_node(ValueType old_value, ValueType new_value) -> None`**<br>Найти (первый) узел по его значению и заменить значение в следующем узле на новое.
 
-- **`replace_previos_node(ValueType old_value, ValueType new_value) -> None`**
-<br>Найти (первый) узел по его значению и заменить значение в предыдущем узле на новое.
+- **`remove_previos_node(ValueType value) -> ValueType`**<br>Найти (первый) узел по его значению и удалить предыдущий узел (если такой есть).
 
-- **`replace_next_node(ValueType old_value, ValueType new_value) -> None`**
-<br>Найти (первый) узел по его значению и заменить значение в следующем узле на новое.
+- **`remove_next_node(ValueType value) -> ValueType`**<br>Найти (первый) узел по его значению и удалить следующий узел (если такой есть).
 
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
 
-- **`remove_previos_node(ValueType value) -> ValueType`**
-<br>Найти (первый) узел по его значению и удалить предыдущий узел (если такой есть).
-
-- **`remove_next_node(ValueType value) -> ValueType`**
-<br>Найти (первый) узел по его значению и удалить следующий узел (если такой есть).
-<!-- #endregion -->
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
 **Сложность**
 
 | Операция     | 1й узел | $k$й узел | $n$й узел |
@@ -413,9 +481,9 @@ print(list1)
 $O(n)$ / NA &mdash; операция не определена, но для проверки требуется $O(n)$
 
 ![](./img/linked_list_head_size.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Линейный односвязный список (Версия 5). Наследуется от версии 4
 
 Если дополнительно хранить ссылку на последний элемент списка, то
@@ -440,13 +508,9 @@ $O(n)$ / NA &mdash; операция не определена, но для пр
 $O(1)$ / NA &mdash; операция не определена, но для проверки требуется $O(1)$
 
 ![](./img/linked_list_head_tail_size.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
 
-<!-- #endregion -->
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Линейный односвязный список (Версия 6). Наследуется от версии 5
 
 Если при необходимости модифицировать (вставить) узел перед текущим, менять значение в текущем узле, то можно дополнительно увеличить производительность
@@ -470,9 +534,9 @@ $O(1)$ / NA &mdash; операция не определена, но для пр
 $O(n)$ / NA &mdash; операция не определена, но для проверки требуется $O(n)$
 
 ![](./img/linked_list_head_tail_size.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 # Двусвязные (двунаправленные) линейные списки (Doubly linked lists)
 
 - ссылки в каждом узле указывают на предыдущий и на последующий узел в списке
@@ -480,17 +544,16 @@ $O(n)$ / NA &mdash; операция не определена, но для пр
 - проще производить удаление и перестановку элементов, так как легко доступны адреса тех элементов списка, указатели которых направлены на изменяемый элемент 
 
 ![](./img/double_linked_list.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
 
 Задание:
 Реализовать двусвязный список и построить таблицу сложности выполнения операций.
 
 ![](./img/double_list_head_tail_size.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Кольцевой связный список
 
 - может быть односвязным или двусвязным
@@ -502,9 +565,9 @@ $O(n)$ / NA &mdash; операция не определена, но для пр
 - cуществуют циклические списки с выделенным головным элементом, облегчающие полный проход через список 
 
 ![](./img/circurlar_linked_list.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Развёрнутый связный список
 
 - каждый физический элемент содержит несколько логических элементов (обычно в виде массива, что позволяет ускорить доступ к отдельным элементам)
@@ -518,9 +581,9 @@ $O(n)$ / NA &mdash; операция не определена, но для пр
 - при слишком маленьком — увеличивается расход памяти. 
 
 ![](./img/unrolled_linked_lists.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## XOR-связный список
 
 - похожи на обычный двусвязный список, однако в каждом элементе хранится только один составной адрес &mdash; результат выполнения операции XOR над адресами предыдущего и следующего элементов списка
@@ -532,4 +595,3 @@ $O(n)$ / NA &mdash; операция не определена, но для пр
 - невозможно использовать стандартный сборщик мусора
 - затруднения при отладке программы
 - используется довольно редко
-<!-- #endregion -->

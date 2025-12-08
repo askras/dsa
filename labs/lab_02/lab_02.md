@@ -246,3 +246,5 @@ $f(а_{k_1}) \leqslant f(а_{k_2}) \leqslant ... \leqslant f(а_{k_n})$.
 
 Блок-схемы алгоритмов необходимо реализовать в соответствии с примером, расположенным здесь: по 
 [https://www.overleaf.com/learn/latex/LaTeX_Graphics_using_TikZ%3A_A_Tutorial_for_Beginners_(Part_3)%E2%80%94Creating_Flowcharts](https://www.overleaf.com/learn/latex/LaTeX_Graphics_using_TikZ%3A_A_Tutorial_for_Beginners_(Part_3)%E2%80%94Creating_Flowcharts)
+
+Компиляция блок-схемы возможна прямо в JupyterLab. См. справку [jupyter-tikz](https://jupyter-tikz.readthedocs.io/stable/)

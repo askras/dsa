@@ -12,6 +12,8 @@ kernelspec:
   name: python3
 ---
 
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 <!-- #region editable=true slideshow={"slide_type": "slide"} -->
 # Лекция 6. Массивы
 
@@ -21,23 +23,28 @@ kernelspec:
 
 Красников Александр Сергеевич
 
-2024 год
-<!-- #endregion -->
+2024-2025
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: skip
+---
 from typing import Any, Self
 
 import doctest
 ```
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## План лекции
 1. Массив
 2. Улучшеный массив (Вектор)
 3. Динамический массив
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Абстрактные типы данных (АТД) 
 
 **Абстрактный тип данных** &mdash; это математическая модель для типов данных, которая определяется поведением (семантикой) с точки зрения возможных операций над данными этого типа и поведения этих операций.
@@ -48,9 +55,9 @@ import doctest
 - каждая реализация определяет один и тот же набор функций, которые должны работать одинаково (по результату, а не по скорости) для всех реализаций. 
 
 Поскольку значения данных и операции определены с математической точностью, а не как реализация на компьютерном языке, можно рассуждать о результатах операций, связях с другими абстрактными типами данных, о том, реализует ли программа данный тип данных и т.д.
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "subslide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Основные операции, реализуемые АТД
 
 - создание структуры данных (конструктор)
@@ -62,9 +69,9 @@ import doctest
 - проверка наличия элементов в структуре (проверка на пустоту)
 
 Набор и наименование операций отличается у разных АТД
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "subslide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Структуры данных (СД)
 
 Конкретные реализации АТД называются **структурами данных**. 
@@ -76,48 +83,46 @@ import doctest
 
 - **Связные структуры данных** реализованы в отдельных блоках памяти, связанных вместе с помощью указателей. 
 К этому виду структур данных относятся списки, деревья и списки смежных вершин графов.
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Массив
 
 **Массив** (**array**) представляет собой набор элементов, позволяющий получить доступ к произвольному элементу по целочисленному ключу &mdash; индексу.
 
 Чаще  всего элементы данных в массивах имеют постоянный размер, что позволяет с легкостью найти любой элемент по его индексу (или адресу), начинающимуся либо с 0, либо с 1. 
 
-Фиксированный начальный размер и индексация, основанная на 0, могут быть объединены следующим образом.
-
 Чаще всего, массив массив представляет собой основную структуру данных смежного типа. 
 
 ![](img/array.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Массив
 
 Игнорируя размер, массив можно рассматривать как абстрактный тип данных, который поддерживает следующие операции:
 
-- **`init(Integer capacity) -> Array`**
-<br>Возвращает пустой массив вместимостью `capacity` элементов.  
+- **`init(Integer capacity) -> Array`** <br>Возвращает пустой массив вместимостью `capacity` элементов.  
 
-- **`get_element_at_index(Integer index) -> ElementsType`**
-<br>Возвращает элемент с индексом `index`<sup>1</sup>.
+- **`get_element_at_index(Integer index) -> ElementsType`** <br>Возвращает элемент с индексом `index`<sup>1</sup>.
 
-- **`set_element_at_index(Integer index, ElementsType element) -> None`**
-<br>Замещает объектом `element` элемент с индексом `index`<sup>1</sup>. 
+- **`set_element_at_index(Integer index, ElementsType element) -> None`** <br>Замещает объектом `element` элемент с индексом `index`<sup>1</sup>.
 
-- **`size() -> Integer`**
-<br>Возвращает фактическую длину массива.
 
-- **`is_empty() -> Boolean`**
-<br>Возвращает `False` если в массиве содержатся элементы и `True`, если массив пустой.
+- **`size() -> Integer`**<br>Возвращает фактическую длину массива.
+
+- **`is_empty() -> Boolean`** <br>Возвращает `False` если в массиве содержатся элементы и `True`, если массив пустой.
 
 `ElementsType` &mdash; тип элементов, хранящихся в массиве.
 
-<sup>1</sup> Если `index < 0` или `index > capacity - 1`, где `capacity` &mdash; вместимость массива, выдается сообщение об ошибке. 
-<!-- #endregion -->
+<sup>1</sup> Если `index < 0` или `index > capacity - 1`, где `capacity` &mdash; вместимость массива, выдается сообщение об ошибке.
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 class Array:
     '''Реализация АТД Массив (Array)
 
@@ -196,9 +201,7 @@ class Array:
 doctest.testmod()
 ```
 
-```python
-
-```
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
 
 | Операция | Сложность |
 |----------|-----------|
@@ -207,42 +210,40 @@ doctest.testmod()
 | `size`                 | $O(1)$ |
 | `is_empty`             | $O(1)$ |
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Улучшенный массив
 
 Улучшеный массив (Вектор) абстрактным типом данных, который подподдерживает следующие основные методы:
 
-- **`init(Integer capacity) -> Array`**
-<br>Возвращает пустой массив вместимостью `capacity` элементов.  
+- **`init(Integer capacity) -> Array`**<br>Возвращает пустой массив вместимостью `capacity` элементов.  
 
-- **`get_element_at_index(Integer index) -> ElementsType`**
-<br>Возвращает элемент с индексом `index`<sup>1</sup>.
+- **`get_element_at_index(Integer index) -> ElementsType`**<br>Возвращает элемент с индексом `index`<sup>1</sup>.
 
-- **`set_element_at_index(Integer index, ElementsType element) -> None`**
-<br>Замещает объектом `element` элемент с индексом `index`<sup>1</sup>.
+- **`set_element_at_index(Integer index, ElementsType element) -> None`**<br>Замещает объектом `element` элемент с индексом `index`<sup>1</sup>.
 
-- **`size() -> Integer`**
-<br>Возвращает фактическую длину массива.
+- **`size() -> Integer`**<br>Возвращает фактическую длину массива.
 
-- **`is_empty() -> Boolean`**
-<br>Возвращает `False` если в массиве содержатся элементы и `True`, если массив пустой.
+- **`is_empty() -> Boolean`**<br>Возвращает `False` если в массиве содержатся элементы и `True`, если массив пустой.
 
 <hr style="color:red">
 
-- **`insert_element_at_index(Integer index, ElementsType element) -> None`**
-<br>Добавляет в позицию `index`<sup>1</sup> массива новый элемент `element`. При этом все элементы начиная с `index` сдвигаются вправо
+- **`insert_element_at_index(Integer index, ElementsType element) -> None`**<br>Добавляет в позицию `index`<sup>1</sup> массива новый элемент `element`. При этом все элементы начиная с `index` сдвигаются вправо
 
-- **`remove_element_at_index(Integer index) -> None`**
-<br>Удаляет элемент с индексом `index`<sup>1</sup>. При этом все элементы начиная с `index + 1` сдвигаются влево 
+- **`remove_element_at_index(Integer index) -> None`**<br>Удаляет элемент с индексом `index`<sup>1</sup>. При этом все элементы начиная с `index + 1` сдвигаются влево 
 
 <hr style="color:red">
 
 `ElementsType` &mdash; тип элементов, хранящихся в массиве.
 
-<sup>1</sup> Если `index < 0` или `index > capacity - 1`, где `capacity` &mdash; вместимость массива, выдается сообщение об ошибке. 
-<!-- #endregion -->
+<sup>1</sup> Если `index < 0` или `index > capacity - 1`, где `capacity` &mdash; вместимость массива, выдается сообщение об ошибке.
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 class ExArray(Array):
     '''Реализация АТД Улучшеный Массив (Vector)
     
@@ -312,6 +313,8 @@ class ExArray(Array):
 doctest.testmod()
 ```
 
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 | Операция | Сложность |
 |----------|-----------|
 | `get_element_at_index` | $O(1)$ |
@@ -323,50 +326,47 @@ doctest.testmod()
 | `remove_element_at_index` | $O(n)$ |
 
 При более детальном рассмотрении методов `insert_element_at_index(index, element)` и `remove_element_at_index(index)` можно определить, что время выполнения каждого из них равно $O(n - index + 1)$, так как в ходе исполнения программы перемещаются только элементы с индексом `index` и выше. 
-Таким образом, для добавления или удаления элемента в конце вектора с помощью методов `insert_element_at_index(index, element)` и `remove_element_at_index(index)` необходимо время $O(1)$.
+Таким образом, для добавления или удаления элемента в конце массива с помощью методов `insert_element_at_index(index, element)` и `remove_element_at_index(index)` необходимо время $O(1)$.
 
-<!-- #region editable=true slideshow={"slide_type": ""} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Расширяемый массив (Динамический массив) (Dynamic Array)
 
-Основной недостаток реализации вектора на основе простого массива, состоит в необходимости предварительногоуказания размера массива `capacity`, то есть максимального числа элементов веквектора. Если же действительное число элементов значительно меньше `capacity`,то при такой реализации бесполезно занимается место в памяти. Хужетого, если количестыо элементов (`size`) окажется больше значения `capacity`, то реализация приведет к сбою программы. 
+Основной недостаток простого массива, состоит в необходимости предварительного указания размера массива `capacity`, то есть его максимального числа элементов. Если же действительное число элементов значительно меньше `capacity`,то при такой реализации бесполезно занимается место в памяти. Хуже того, если количество элементов (`size`) окажется больше значения `capacity`, то реализация приведет к сбою программы. 
 
 Чтобы избежать этого, при возникновении переполнения, то есть при `capacity` = `size`, и вызове метода `insert_element_at_index` выполняются следующие операции:
 
 1) создается новый массив длиной `2 * capacity`;
 2) копируем все элементы из старого массива в новый.
 
-- **`init(Integer capacity) -> Array`**
-<br>Возвращает пустой массив вместимостью `capacity` элементов.
-<br>Если размер не задан, возвращает пустой массив с размером по умолчанию
+- **`init(Integer capacity) -> Array`** <br>Возвращает пустой массив вместимостью `capacity` элементов. <br>Если размер не задан, возвращает пустой массив с размером по умолчанию
  
-- **`get_element_at_index(Integer index) -> ElementsType`**
-<br>Возвращает элемент с индексом `index`<sup>1</sup>.
+- **`get_element_at_index(Integer index) -> ElementsType`**<br>Возвращает элемент с индексом `index`<sup>1</sup>.
 
-- **`set_element_at_index(Integer index, ElementsType element) -> None`**
-<br>Замещает объектом `element` элемент с индексом `index`<sup>1</sup>.
+- **`set_element_at_index(Integer index, ElementsType element) -> None`**<br>Замещает объектом `element` элемент с индексом `index`<sup>1</sup>.
 
-- **`size() -> Integer`**
-<br>Возвращает фактическую длину массива.
+- **`size() -> Integer`**<br>Возвращает фактическую длину массива.
 
-- **`is_empty() -> Boolean`**
-<br>Возвращает `False` если в массиве содержатся элементы и `True`, если массив пустой.
+- **`is_empty() -> Boolean`**<br>Возвращает `False` если в массиве содержатся элементы и `True`, если массив пустой.
 
 <hr style="color:red">
 
-- **`insert_element_at_index(Integer index, ElementsType element) -> None`**
-<br>Добавляет в позицию `index`<sup>1</sup> массива новый элемент `element`. При этом все элементы начиная с `index` сдвигаются вправо
+- **`insert_element_at_index(Integer index, ElementsType element) -> None`** <br>Добавляет в позицию `index`<sup>1</sup> массива новый элемент `element`. При этом все элементы начиная с `index` сдвигаются вправо
 
-- **`remove_element_at_index(Integer index) -> None`**
-<br>Удаляет элемент с индексом `index`<sup>1</sup>. При этом все элементы начиная с `index + 1` сдвигаются влево 
+- **`remove_element_at_index(Integer index) -> None`**<br>Удаляет элемент с индексом `index`<sup>1</sup>. При этом все элементы начиная с `index + 1` сдвигаются влево 
 
 <hr style="color:red">
 
 `ElementsType` &mdash; тип элементов, хранящихся в массиве.
 
-<sup>1</sup> Если `index < 0` или `index > capacity - 1`, где `capacity` &mdash; вместимость массива, выдается сообщение об ошибке. 
-<!-- #endregion -->
+<sup>1</sup> Если `index < 0` или `index > capacity - 1`, где `capacity` &mdash; вместимость массива, выдается сообщение об ошибке.
 
-```python editable=true slideshow={"slide_type": ""}
+```{code-cell} ipython3
+---
+editable: true
+slideshow:
+  slide_type: slide
+---
 class DynamicArray(ExArray):
     '''Реализация АТД Динамический Массив (DynamicArray)
     
@@ -444,7 +444,8 @@ class DynamicArray(ExArray):
 doctest.testmod()
 ```
 
-<!-- #region editable=true slideshow={"slide_type": "subslide"} jp-MarkdownHeadingCollapsed=true -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Массив: Достоинства
 
 - **Постоянное время доступа при условии наличия индекса.**
@@ -456,29 +457,30 @@ doctest.testmod()
 
 - **Локальность в памяти.**
 Во многих задачах программирования требуется обрабатывать элементы структуры данных в цикле. Массивы хорошо подходят для операций такого типа, поскольку обладают отличной локальностью в памяти. В современных компьютерных архитектурах физическая непрерывность последовательных обращений к данным помогает воспользоваться высокоскоростной кэш-памятью.
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "subslide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 # Массив: Недостатки
 
 - **Обращение к индексу за границами массива.**
 Попытка обращения к (n + 1)-му элементу массива размером n элементов немедленно вызовет аварийное завершение программы. Этот недостаток можно компенсировать объявлением массивов очень больших размеров, но это может повлечь за собой чрезмерные затраты памяти, что опять наложит ограничения на возможности программы.
 
 
-- **Высокая сложность вставки и удаления нового элемента**
+- **Высокая сложность вставки и удаления элементов**
   - Необходимо сдвинуть все элементы, чтобы освободить место для вставки
   - Необходимо заполнить пустые позиции после удаления
-<!-- #endregion -->
+
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
 
 ## Возможные расширения массива
 
 1. Методы `set_element_at_index(index, element)`, `insert_element_at_index(index, element)`, `remove_element_at_index(index, element)` могут возвращать заменяемый (при наличии) элемент.
 2. Метод `erase_element_at_index(Integer index) -> ItemsType`- Возвращает значение элемента в позиции `index` массива и СТИРАЕТ его.
-3. Метод `delete_element_at_index(Integer index) -> ItemsType`- Возвращает значение элемента в позиции `index` массива и УДАЛЯЕТ его. 
+3. Метод `delete_element_at_index(Integer index) -> ItemsType`- Возвращает значение элемента в позиции `index` массива и УДАЛЯЕТ его.
 
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
 
 ## Вопросы
 1. Какие могут быть стратегии увеличения размера массива? В чем их преимущество и недостатки?
-2. Какие могут быть стратегии увеличения размера массива? В чем их преимущество и недостатки?
-3. Сложность типовых операций в предложенных реализациях.
-4. Как добиться времени исполнения $O(1)$ для методов  `insert_element_at_index(index, element)` и `remove_element_at_index(index)` в начале массива.
+2. Сложность типовых операций в предложенных реализациях.
+3. Как добиться времени исполнения $O(1)$ для методов  `insert_element_at_index(index, element)` и `remove_element_at_index(index)` в начале массива.

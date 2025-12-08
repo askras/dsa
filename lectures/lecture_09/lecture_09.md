@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.17.3
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -21,7 +21,7 @@ jupyter:
 
 Красников Александр Сергеевич
 
-2024 год
+2024-2025
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": "slide"} -->
@@ -86,7 +86,7 @@ keys = ['apple', 'banana', 'cherry', 'pear', 'raspberry',
 
 for i in range(100):
     key = random.choice(keys)
-    assert hash(key) == hash(key)
+    assert hash(key) == hash(key), "Хеши не совпали"
 ```
 
 <!-- #region editable=true slideshow={"slide_type": "subslide"} -->
@@ -123,10 +123,6 @@ def simple_hash(key):
 key = 'example'
 print(f'Хеш-значение для ключа "{key}": {simple_hash(key)}')
 ```
-
-<!-- #region editable=true slideshow={"slide_type": "subslide"} -->
-
-<!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
 def polynomial_hash(key, a=33, m=1000):
@@ -712,8 +708,4 @@ print(find_duplicates(arr))  # Вывод: [2, 4]
 - **Пространственная сложность**:
   - В методе цепочек требуется дополнительная память для хранения указателей в связных списках.
   - В методе открытой адресации заполнение таблицы выше определенного уровня (обычно около 70-80%) значительно увеличивает количество коллизий и, следовательно, время доступа.
-<!-- #endregion -->
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-
 <!-- #endregion -->

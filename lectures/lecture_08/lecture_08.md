@@ -12,7 +12,8 @@ kernelspec:
   name: python3
 ---
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 # Лекция 8. Стек, очередь, дек
 
 Алгоритмы и структуры данных
@@ -21,10 +22,10 @@ kernelspec:
 
 Красников Александр Сергеевич
 
-2024 год
-<!-- #endregion -->
+2024-2025
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Стек (Stack)
 
 Стек представляет собой объект, работа с которым &mdash; добавление и удаление &mdash; осуществляется по принципу LIFO (last-in first-out &mdash; последним пришел &mdash; первым ушел). 
@@ -39,9 +40,9 @@ kernelspec:
 Когда нужна новая тарелка из распределителя, ее &laquo;выталкивают&raquo; из стопки, а при добавлении в стопку еще одной тарелки ее &laquo;вдавливают&raquo; в стопку, и она становится верхней в стопке. 
 
 Стеки относятся к базовым структурам данных, используемым во многих приложениях.
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Пример 1
 
 В интернет-браузерах адреса посещаемых сайтов хранятся в виде стеков. 
@@ -49,17 +50,17 @@ kernelspec:
 При открытии пользователем нового Web-сайта его адрес добавляется (&laquo;вдавливается&raquo;) в стек адресов. 
 
 После этого пользователь может вернуться к открытым ранее сайтам с помощью кнопки &laquo;Назад&raquo;.
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Пример 2
 
 В большинстве текстовых редакторов существует механизм отмены действий &laquo;Undo&raquo;, c помощью которого можно отменить последние операции редактирования и вернуться к предыдущему виду документа. 
 
 Такой механизм отмены действий реализуется благодаря хранению проводимых изменений в виде стека.
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Альтернативные названия стеков
 
 - магазинные списки (push-down lists)
@@ -69,53 +70,46 @@ kernelspec:
 - кучи (piles)
 - дисциплины обслуживания в обратном порядке (last-in-ﬁrst-out lists — LIFO lists)
 - флюгерные списки (yo-yo lists) 
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Стек как абстрактный тип данных
 
 Стек является абстрактным типом данных (АТД), который поддерживает следующие основные методы:
 
 **Основные методы**
 
-- **`init() -> Stack`**
-<br>Возвращает пустой стек.
-
-- **`push(ValueType value) -> None`**
-<br>Помещает объект на вершину стека.
-- **`pop() -> ValueType`**
-<br>Удаляет объект из стека и возвращает новый верхний объект стека. Если стек пуст, выдается сообщение об ошибке.
+- **`init() -> Stack`**<br>Возвращает пустой стек.
+- **`push(ValueType value) -> None`**<br>Помещает объект на вершину стека.
+- **`pop() -> ValueType`**<br>Удаляет объект из стека и возвращает новый верхний объект стека. Если стек пуст, выдается сообщение об ошибке.
 
 **Дополнительные методы**
 
-- **`size() -> Integer`**
-<br>Возвращает число объектов в стеке.
-- **`is_empty() -> Boolean`**
-<br>Возвращает логическое значение, подтверждающее, что стек пуст.
-- **`top() -> ValueType`**
-<br>Возвращает верхний объект в стеке, не удаляя его. Если стек пуст, выдается сообщение об ошибке.
-<!-- #endregion -->
+- **`size() -> Integer`**<br>Возвращает число объектов в стеке.
+- **`is_empty() -> Boolean`**<br>Возвращает логическое значение, подтверждающее, что стек пуст.
+- **`top() -> ValueType`**<br>Возвращает верхний объект в стеке, не удаляя его. Если стек пуст, выдается сообщение об ошибке.
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Схема операций со стеком
 
 ![](./img/stack.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Схема стека в виде железнодорожной станции
 
 ![](./img/stack_railway.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Реализация стека
 - на основе массива
 - на основе связного списка
 - на основе дека
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Очередь (Queue)
 
 Очередь &mdash; это структура данных работа с которыми  &mdash; добавление и удаление  &mdash; осуществляется по принципу FIFO (first-in first-out) (первым пришел &mdash; первым ушел). 
@@ -123,73 +117,66 @@ kernelspec:
 Добавление объектов в очередь может осуществляться в любое время, однако удаленным может быть лишь объект, который был добавлен первым. 
 
 Говорят, что элементы добавляются в очередь с конца, а удаляются с начала. 
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Пример 1
 
 Очередь людей в парке аттракционов.
 Люди встают в очередь с конца, а те, кто был первым в очереди, катаются на аттракционе.
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Пример 2
 
 Очередь документов отправленных на печать.
 Документ отправленный первым, напечатается первым.
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Альтернативные названия очереди
 
 -  циклические хранилища (circular stores)
 -  дисциплины обслуживания в порядке поступления (ﬁrst-in-ﬁrst-out lists — FIFO lists)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Очередь как абстрактный тип данных
 
 Очередь является абстрактным типом данных (АТД), который поддерживает следующие основные методы:
 
 **Основные методы**
 
-- **`init() -> Queue`**
-<br>Возвращает пустую очередь.
-
-- **`enqueue(ValueType value) -> None`**
-<br>Помещает объект в конец очереди.
-- **`dequeue() -> ValueType`**
-<br>Удаляет объект из начала очереди и возвращает его. Если очередь пуста, выдается сообщение об ошибке.
+- **`init() -> Queue`**<br>Возвращает пустую очередь.
+- **`enqueue(ValueType value) -> None`**<br>Помещает объект в конец очереди.
+- **`dequeue() -> ValueType`**<br>Удаляет объект из начала очереди и возвращает его. Если очередь пуста, выдается сообщение об ошибке.
 
 **Дополнительные методы**
 
-- **`size() -> Integer`**
-<br>Возвращает число объектов в очереди.
-- **`is_empty() -> Boolean`**
-<br>Возвращает логическое значение, подтверждающее, что очередь пуста.
-- **`front() -> ValueType`**
-<br>Возвращает первый объект в очереди не удаляя его. Если очередь пуста, выдается сообщение об ошибке.
-<!-- #endregion -->
+- **`size() -> Integer`**<br>Возвращает число объектов в очереди.
+- **`is_empty() -> Boolean`**<br>Возвращает логическое значение, подтверждающее, что очередь пуста.
+- **`front() -> ValueType`**<br>Возвращает первый объект в очереди не удаляя его. Если очередь пуста, выдается сообщение об ошибке.
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Схема операций с очередью
 ![](./img/queue.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Схема очереди в виде железнодорожной станции
 
 ![](./img/queue_railway.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Реализация очереди
 - на основе массива
 - на основе связного списка
 - на основе дека
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Дек (Deque)
 
 Дек &mdash; это структура данных в которой все операции вставки и удаления (и, как правило, операции доступа к данным) выполняются с обоих концов.
@@ -199,9 +186,9 @@ kernelspec:
 Он обладает некоторыми общими свойствами с колодой карт. 
 
 Выделяют **деки с ограниченным выводом** (**output-restricted deque**) и с **ограниченным вводом** (**input-restricted deque**), в которых операции удаления и вставки элементов соответственно выполняются только на одном из концов.
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Альтернативные названия дека
 
 - двусторонняя очередь (double-ended queue)
@@ -210,56 +197,43 @@ kernelspec:
 
 
 Термины &laquo;LIFO&raquo; и &laquo;FIFO&raquo; многие годы употреблялись бухгалтерами для обозначения метода оценки и продажи товаров. 
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Дек как абстрактный тип данных
 
 Дек является абстрактным типом данных (АТД), который поддерживает следующие основные методы:
 
 **Основные методы**
 
-- **`init() -> Deque`**
-<br>Возвращает пустую очередь.
-
-- **`insert_left(ValueType value) -> None`**
-<br>Помещает объект на левый конец дека.
-- **`insert_right(ValueType value) -> None`**
-<br>Помещает объект на правый конец дека.
-
-- **`remove_left() -> ValueType`**
-<br>Удаляет первый объект с левого конца дека и возвращает его. Если дек пуст, выдается сообщение об ошибке.
-- **`remove_right() -> ValueType`**
-<br>Удаляет первый объект с правого конца дека и возвращает его. Если дек пуст, выдается сообщение об ошибке.
+- **`init() -> Deque`**<br>Возвращает пустую очередь.
+- **`insert_left(ValueType value) -> None`**<br>Помещает объект на левый конец дека.
+- **`insert_right(ValueType value) -> None`**<br>Помещает объект на правый конец дека.
+- **`remove_left() -> ValueType`**<br>Удаляет первый объект с левого конца дека и возвращает его. Если дек пуст, выдается сообщение об ошибке.
+- **`remove_right() -> ValueType`**<br>Удаляет первый объект с правого конца дека и возвращает его. Если дек пуст, выдается сообщение об ошибке.
 
 
 **Дополнительные методы**
 
-- **`size() -> Integer`**
-<br>Возвращает число объектов в деке.
-- **`is_empty() -> Boolean`**
-<br>Возвращает логическое значение, подтверждающее, что дек пуст.
+- **`size() -> Integer`**<br>Возвращает число объектов в деке.
+- **`is_empty() -> Boolean`**<br>Возвращает логическое значение, подтверждающее, что дек пуст.
+- **`get_left() -> ValueType`**<br>Возвращает первый объект с левого конца дека не удаляя его. Если дек пуст, выдается сообщение об ошибке.
+- **`get_right() -> ValueType`**<br>Возвращает первый объект с правого конца дека не удаляя его. Если дек пуст, выдается сообщение об ошибке.
 
-- **`get_left() -> ValueType`**
-<br>Возвращает первый объект с левого конца дека не удаляя его. Если дек пуст, выдается сообщение об ошибке.
-- **`get_right() -> ValueType`**
-<br>Возвращает первый объект с правого конца дека не удаляя его. Если дек пуст, выдается сообщение об ошибке.
-<!-- #endregion -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
 ## Схема операций с деком
 
 ![](./img/deque.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Схема дека в виде железнодорожной станции
 
 ![](./img/deque_railway.png)
-<!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": "slide"} -->
++++ {"editable": true, "slideshow": {"slide_type": "slide"}}
+
 ### Реализация дека
 - на основе массива
 - на основе двусвязного списка
-<!-- #endregion -->
