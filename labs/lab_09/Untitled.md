@@ -79,73 +79,6 @@ class VigenereCipher:
                 plaintext += char
                 
         return plaintext
-
-
-def test_vigenere_basic():
-    cipher = VigenereCipher()
-    
-    test_cases = [
-        ("HELLO", "KEY", "RIJVS"),
-        ("ATTACKATDAWN", "LEMON", "LXFOPVEFRNHR"),
-        ("Python", "SECRET", "Hmzgwb"),
-        ("Hello World!", "KEY", "Rijvs Uyvjn!"),
-    ]
-    
-    print("Basic Vigenere Tests:")
-    for plaintext, key, expected in test_cases:
-        encrypted = cipher.encrypt(plaintext, key)
-        decrypted = cipher.decrypt(encrypted, key)
-        print(f"'{plaintext}' -> '{encrypted}' -> '{decrypted}' : {encrypted == expected and decrypted == plaintext}")
-
-
-def test_vigenere_edge_cases():
-    cipher = VigenereCipher()
-    
-    edge_cases = [
-        ("", "KEY", ""),
-        ("123!@#", "KEY", "123!@#"),
-        ("AaBbCc", "KEY", "KeFfIi")
-    ]
-    
-    print("Edge Cases Tests:")
-    for plaintext, key, expected in edge_cases:
-        encrypted = cipher.encrypt(plaintext, key)
-        decrypted = cipher.decrypt(encrypted, key)
-        print(f"'{plaintext}' -> '{encrypted}' -> '{decrypted}' : {decrypted == plaintext}")
-
-
-def test_vigenere_comprehensive():
-    cipher = VigenereCipher()
-    
-    texts = [
-        "The quick brown fox jumps over the lazy dog",
-        "CRYPTOGRAPHY IS IMPORTANT",
-        "Python Programming 2024",
-        "Hello! How are you? I'm fine, thanks."
-    ]
-    
-    keys = ["KEY", "SECRET", "PASSWORD", "CRYPTO"]
-    
-    print("Comprehensive Tests:")
-    all_passed = True
-    for text in texts:
-        for key in keys:
-            encrypted = cipher.encrypt(text, key)
-            decrypted = cipher.decrypt(encrypted, key)
-            if decrypted != text:
-                print(f"FAIL: '{text}' with key '{key}'")
-                all_passed = False
-    
-    if all_passed:
-        print("All comprehensive tests passed")
-
-
-if __name__ == "__main__":
-    test_vigenere_basic()
-    print()
-    test_vigenere_edge_cases()
-    print()
-    test_vigenere_comprehensive()
 ```
 
 ### Криптосистема Пэйе
@@ -262,72 +195,47 @@ class PaillierCryptosystem:
         return ''.join(chr(num) for num in numbers)
 
 
-def test_paillier_basic():
-    paillier = PaillierCryptosystem(key_length=32)
-    public_key, private_key = paillier.generate_keys()
-    
-    test_numbers = [42, 123, 255, 1000, 777]
-    
-    print("Basic Paillier Tests:")
-    for num in test_numbers:
-        encrypted = paillier.encrypt(num, public_key)
-        decrypted = paillier.decrypt(encrypted, public_key, private_key)
-        print(f"{num} -> {encrypted} -> {decrypted} : {num == decrypted}")
+
+```
+
+Генерация ключей:
+Выбираем два больших простых числа p и q
+
+Вычисляем n = p * q (публичный модуль)
+
+Вычисляем λ = НОК(p-1, q-1) (секретный параметр)
+
+Выбираем g = n + 1 (публичный параметр)
+
+Публичный ключ: (n, g)
+Приватный ключ: (λ, μ)
+
+Шифрование:
+Для шифрования числа m:
+
+Выбираем случайное r (1 < r < n)
+
+Вычисляем: c = (gᵐ * rⁿ) mod n²
+
+Важно: Одно и то же m с разными r дает разные c!
+
+Дешифрование:
+m = L(c^λ mod n²) * μ mod n
+
+```python
+p = 541, q = 619
+n = p*q = 334879
+g = n+1 = 334880
+λ = НОК(540, 618) = 55620
+μ = вычисляется...
 
 
-def test_paillier_text():
-    paillier = PaillierCryptosystem(key_length=32)
-    public_key, private_key = paillier.generate_keys()
-    
-    test_texts = ["HELLO", "TEST", "ABC", "123"]
-    
-    print("Text Paillier Tests:")
-    for text in test_texts:
-        numbers = paillier.text_to_numbers(text)
-        encrypted_numbers = [paillier.encrypt(num, public_key) for num in numbers]
-        decrypted_numbers = [paillier.decrypt(enc_num, public_key, private_key) for enc_num in encrypted_numbers]
-        decrypted_text = paillier.numbers_to_text(decrypted_numbers)
-        print(f"'{text}' -> '{decrypted_text}' : {text == decrypted_text}")
+Выбираем r=123456
+c = (334880⁴² * 123456³³⁴⁸⁷⁹) mod n²
+c = 83274619823... (очень большое число)
 
 
-def test_paillier_homomorphic():
-    paillier = PaillierCryptosystem(key_length=32)
-    public_key, private_key = paillier.generate_keys()
-    
-    a, b = 10, 20
-    
-    encrypted_a = paillier.encrypt(a, public_key)
-    encrypted_b = paillier.encrypt(b, public_key)
-    
-    n_sq = public_key[0] * public_key[0]
-    encrypted_sum = (encrypted_a * encrypted_b) % n_sq
-    
-    decrypted_sum = paillier.decrypt(encrypted_sum, public_key, private_key)
-    
-    print("Homomorphic Addition Test:")
-    print(f"{a} + {b} = {decrypted_sum} : {a + b == decrypted_sum}")
-
-
-def test_paillier_multiple_keys():
-    paillier = PaillierCryptosystem(key_length=32)
-    
-    print("Multiple Keys Test:")
-    for i in range(3):
-        public_key, private_key = paillier.generate_keys()
-        test_num = random.randint(1, 100)
-        encrypted = paillier.encrypt(test_num, public_key)
-        decrypted = paillier.decrypt(encrypted, public_key, private_key)
-        print(f"Key set {i+1}: {test_num} -> {decrypted} : {test_num == decrypted}")
-
-
-if __name__ == "__main__":
-    test_paillier_basic()
-    print()
-    test_paillier_text()
-    print()
-    test_paillier_homomorphic()
-    print()
-    test_paillier_multiple_keys()
+m = специальная_формула(c) = 42
 ```
 
 ```python
