@@ -27,7 +27,7 @@ def quiz(lab_n, questions_num=10):
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
-quiz(5)
+quiz(9)
 ```
 
 ```python
@@ -48,5 +48,9 @@ display_quiz(questions,
 ```
 
 ```python editable=true slideshow={"slide_type": ""}
+!pip install jupyterquiz
+```
+
+```python
 
 ```
