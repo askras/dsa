@@ -54,3 +54,10 @@ export JUPYTERLAB_SETTINGS_DIR=./.jupyterlab_config/user-settings
 export JUPYTERLAB_WORKSPACES_DIR=./.jupyterlab_config/workspaces
 python -m jupyter lab --allow-root --NotebookApp.token='' --NotebookApp.password=''
 """
+
+calcbrs = """
+python ./brs/calc_brs.py ./brs/students_36.csv -o ./brs/result_36.csv
+python ./brs/calc_brs.py ./brs/students_37.csv -o ./brs/result_37.csv
+python ./brs/calc_brs.py ./brs/students_38.csv -o ./brs/result_38.csv
+python ./brs/calc_brs.py ./brs/students_310.csv -o ./brs/result_310.csv
+"""
