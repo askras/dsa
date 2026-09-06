@@ -1,0 +1,14 @@
+echo '# Вопросы для самопроверки' > ./lectures/lecture_01/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_02/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_03/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_04/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_05/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_06/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_07/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_08/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_09/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_10/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_11/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_12/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_13/question.md
+echo '# Вопросы для самопроверки' > ./lectures/lecture_14/question.md
